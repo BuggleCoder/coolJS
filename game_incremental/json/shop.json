@@ -1,7 +1,8 @@
 [
   {
     "name": "Monkey",
-    "basePrice": "20",
-    "cps": "5"
+    "basePrice": "50",
+    "cps": "1",
+    "flavor": "A monkey who is good at clicking. If by good you mean horrible."
   }
 ]

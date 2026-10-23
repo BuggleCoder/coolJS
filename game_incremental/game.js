@@ -11,60 +11,25 @@ let player = {
   clickPower: 1,
 };
 
-let lastTime = performance.now();
-
-shopItems.forEach((item) => {
-  item.basePrice = Number(item.basePrice);
-  item.cps = Number(item.cps);
-});
-
-function initShop() {
-  shopEl.innerHTML = "";
-  shopItems.forEach((item) => {
-    let btn = document.createElement("button");
-    const itemId = item.id || item.name.toLowerCase();
-    btn.id = `buy-${itemId}`;
-    btn.className = "shop-btn";
-    btn.textContent = `Buy ${item.name} (Costs ${item.basePrice} clicks) | +${item.cps} CPS`;
-
-    btn.disabled = player.clicks < item.basePrice;
-
-    btn.addEventListener("click", () => buyItem(item));
-    shopEl.appendChild(btn);
-  });
-}
-
-function buyItem(item) {
-  if (player.clicks >= item.basePrice) {
-    player.clicks -= item.basePrice;
-    player.cps += item.cps;
-
-    item.basePrice = Math.ceil(item.basePrice * 1.15);
-
-    updateUI();
+function shopUI() {
+  for (let i = 0; i < shopItems.length(); i++) {
+    if (shopItems[i].basePrice / 2 <= player.clicks) {
+      shopEl.append(
+        `<button class="shopBtn" id="shopBtn${i}">${shopItems[i].name}<button>`,
+      );
+    }
   }
 }
 
 function updateUI() {
   scoreEl.textContent = Math.floor(player.clicks);
   cpsEl.textContent = player.cps.toFixed(1);
-
-  shopItems.forEach((item) => {
-    const itemId = item.id || item.name.toLowerCase();
-    let btn = document.getElementById(`buy-${itemId}`);
-    if (btn) {
-      btn.disabled = player.clicks < item.basePrice;
-      btn.textContent = `Buy ${item.name} (${item.basePrice} clicks) | +${item.cps} CPS`;
-    }
-  });
+  shopUI();
 }
 
 function gameLoop(currentTime) {
-  const delta = (currentTime - lastTime) / 1000;
-  lastTime = currentTime;
-
   if (player.cps > 0) {
-    player.clicks += player.cps * delta;
+    player.clicks += player.cps;
     updateUI();
   }
 
@@ -77,6 +42,5 @@ gameBtn.addEventListener("click", function () {
   gameBtn.blur();
 });
 
-initShop();
 requestAnimationFrame(gameLoop);
 updateUI();
