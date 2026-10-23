@@ -20,7 +20,10 @@ function shopUI() {
     if (shopItems[i].basePrice / 2 <= player.clicks) {
       shopEl.insertAdjacentHTML(
         "beforeend",
-        `<button class="shopBtn" id="shopBtn${i}">${shopItems[i].name}</button>`,
+        `<button class="shopBtn" id="shopBtn${i}">
+        ${shopItems[i].name}
+        <span id="shopBtn${i}Price">Costs ${shopItems[i].basePrice}</span>
+        </button>`,
       );
     }
   }
