@@ -13,7 +13,6 @@ let player = {
 
 let lastTime = performance.now();
 
-// Convert string values from JSON to numbers safely if needed
 shopItems.forEach((item) => {
   item.basePrice = Number(item.basePrice);
   item.cps = Number(item.cps);
@@ -23,11 +22,10 @@ function initShop() {
   shopEl.innerHTML = "";
   shopItems.forEach((item) => {
     let btn = document.createElement("button");
-    // Fallback to name if id is missing in JSON
     const itemId = item.id || item.name.toLowerCase();
     btn.id = `buy-${itemId}`;
     btn.className = "shop-btn";
-    btn.textContent = `Buy ${item.name} (${item.basePrice} clicks) | +${item.cps} CPS`;
+    btn.textContent = `Buy ${item.name} (Costs ${item.basePrice} clicks) | +${item.cps} CPS`;
 
     btn.disabled = player.clicks < item.basePrice;
 
