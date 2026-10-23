@@ -18,4 +18,9 @@ body {
   border-color: #000000;
   border-style: solid;
   border-radius: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.shopBtn:hover {
+  background-color: #ffeffe;
 }
