@@ -12,19 +12,45 @@ let player = {
 };
 
 let lastTime = 0;
+let currentlyVisibleCount = 0;
 
 function shopUI() {
-  shopEl.innerHTML = "";
+  let visibleItems = shopItems.filter(
+    (item) => item.basePrice / 2 <= player.clicks,
+  );
 
-  for (let i = 0; i < shopItems.length; i++) {
-    if (shopItems[i].basePrice / 2 <= player.clicks) {
-      shopEl.insertAdjacentHTML(
-        "beforeend",
-        `<button class="shopBtn" id="shopBtn${i}">
-        ${shopItems[i].name}
-        <span id="shopBtn${i}Price">Costs ${shopItems[i].basePrice}</span>
-        </button>`,
-      );
+  if (visibleItems.length !== currentlyVisibleCount) {
+    currentlyVisibleCount = visibleItems.length;
+    shopEl.innerHTML = "";
+
+    for (let i = 0; i < shopItems.length; i++) {
+      if (shopItems[i].basePrice / 2 <= player.clicks) {
+        shopEl.insertAdjacentHTML(
+          "beforeend",
+          `<button class="shopBtn" id="shopBtn${i}">
+            <span class="btn-name">${shopItems[i].name}</span>
+            <span id="shopBtn${i}Price" class="btn-price">Costs ${shopItems[i].basePrice}</span>
+          </button>`,
+        );
+
+        document
+          .getElementById(`shopBtn${i}`)
+          .addEventListener("click", () => buyItem(i));
+      }
+    }
+  } else {
+    for (let i = 0; i < shopItems.length; i++) {
+      let priceEl = document.getElementById(`shopBtn${i}Price`);
+      let btnEl = document.getElementById(`shopBtn${i}`);
+      if (priceEl && btnEl) {
+        priceEl.textContent = `Costs ${shopItems[i].basePrice}`;
+
+        if (player.clicks < shopItems[i].basePrice) {
+          btnEl.classList.add("disabled");
+        } else {
+          btnEl.classList.remove("disabled");
+        }
+      }
     }
   }
 }
@@ -38,14 +64,23 @@ function updateUI() {
 function gameLoop(currentTime) {
   if (!lastTime) lastTime = currentTime;
   let deltaTime = (currentTime - lastTime) / 1000;
+  lastTime = currentTime;
 
-  if (player.cps > 0 && deltaTime >= 1) {
-    player.clicks += player.cps;
-    updateUI();
-    lastTime = currentTime;
+  if (player.cps > 0) {
+    player.clicks += player.cps * deltaTime;
   }
 
+  scoreEl.textContent = Math.floor(player.clicks);
+  shopUI();
+
   requestAnimationFrame(gameLoop);
+}
+
+function buyItem(index) {
+  if (player.clicks >= shopItems[index].basePrice) {
+    player.clicks -= shopItems[index].basePrice;
+    updateUI();
+  }
 }
 
 gameBtn.addEventListener("click", function () {
