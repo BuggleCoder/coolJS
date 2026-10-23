@@ -4,6 +4,7 @@ let gameBtn = document.getElementById("game-btn");
 let scoreEl = document.getElementById("score");
 let cpsEl = document.getElementById("cps");
 let shopEl = document.getElementById("shop-btns");
+let minigameEl = document.getElementById("minigame-container");
 
 let player = {
   cps: 0,
