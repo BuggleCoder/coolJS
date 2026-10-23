@@ -13,5 +13,10 @@
     "name": "Factory",
     "basePrice": 500,
     "cpsBoost": 20.0
+  },
+  {
+    "name": "Site Revamp",
+    "basePrice": 1000,
+    "cpsBoost": 0.0
   }
 ]
