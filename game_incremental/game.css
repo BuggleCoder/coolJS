@@ -28,3 +28,16 @@ body {
 .shopBtn:active {
   transform: scale(0.9);
 }
+
+button.new {
+  background-image: linear-gradient(to right, #ff7e5f, #feb47b);
+  border-color: #000000;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 10px 20px;
+  transition: 0.2s ease;
+}
+
+button.new:active {
+  transform: scale(0.9);
+}
