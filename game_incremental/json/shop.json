@@ -18,5 +18,10 @@
     "name": "Site Revamp",
     "basePrice": 1000,
     "cpsBoost": 0.0
+  },
+  {
+    "name": "City",
+    "basePrice": 1500,
+    "cpsBoost": 80.0
   }
 ]
