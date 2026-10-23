@@ -1,22 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" /> 
-  </head>
-  <body>
-    <h1 id="heading1"></h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idle Clicker Game</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 20px; color: #fff; }
+        .stats { font-size: 1.5rem; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
 
-    <button id="game-btn">Click Me</button>
-
-    <div id="stats">
-      <h2 id="score"></h2>
-      <p id="cps"></p>
+    <div class="stats">
+        <p>Clicks: <span id="score">0</span></p>
+        <p>Clicks Per Second (CPS): <span id="cps">0.0</span></p>
     </div>
 
-    <div id="btns">
-      <div id="shop-btns"></div>
-    </div>
+    <button id="game-btn">CLICK ME!</button>
 
-    <script src="game.js" type="module"></script>
-  </body>
+    <h2>Shop</h2>
+    <div id="shop-btns"></div>
+
+    <script type="module" src="game.js"></script>
+</body>
 </html>
