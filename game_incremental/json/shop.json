@@ -1,12 +1,12 @@
 [
   {
     "name": "Auto-Clicker",
-    "basePrice": 15,
+    "basePrice": 20,
     "cpsBoost": 0.5
   },
   {
     "name": "Monkey",
     "basePrice": 100,
-    "cpsBoost": 4.0
+    "cpsBoost": 3.0
   }
 ]
