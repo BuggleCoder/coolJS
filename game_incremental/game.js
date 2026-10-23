@@ -2,6 +2,8 @@ let gameBtn = document.getElementById("game-btn");
 let scoreEl = document.getElementById("score");
 let cpsEl = document.getElementById("cps");
 
+let shop = document.getElementById("shop-btns");
+
 let player = {
   cps: 0,
   clicks: 0,
@@ -13,6 +15,9 @@ let lastTime = performance.now();
 function updateUI() {
   scoreEl.textContent = Math.floor(player.clicks);
   cpsEl.textContent = player.cps.toFixed(1);
+
+  if (player.clicks > 20) {
+  }
 }
 
 gameBtn.addEventListener("click", function () {
