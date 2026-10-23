@@ -8,10 +8,11 @@ let player = {
   clickPower: 1,
 };
 
+let lastTime = performance.now();
+
 function updateUI() {
-  scoreEl.textContent = player.clicks;
-  cpsEl.textContent = player.cps;
-  updateUI();
+  scoreEl.textContent = Math.floor(player.clicks);
+  cpsEl.textContent = player.cps.toFixed(1);
 }
 
 gameBtn.addEventListener("click", function () {
@@ -20,8 +21,17 @@ gameBtn.addEventListener("click", function () {
   gameBtn.blur();
 });
 
-updateUI();
+function gameLoop(currentTime) {
+  const delta = (currentTime - lastTime) / 1000;
+  lastTime = currentTime;
 
-setInterval(function () {
-  player.clicks += player.cps;
-}, 1000);
+  if (player.cps > 0) {
+    player.clicks += player.cps * delta;
+    updateUI();
+  }
+
+  requestAnimationFrame(gameLoop);
+}
+
+requestAnimationFrame(gameLoop);
+updateUI();
