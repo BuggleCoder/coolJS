@@ -11,6 +11,7 @@ let player = {
 function updateUI() {
   scoreEl.textContent = player.clicks;
   cpsEl.textContent = player.cps;
+  updateUI();
 }
 
 gameBtn.addEventListener("click", function () {
@@ -23,5 +24,4 @@ updateUI();
 
 setInterval(function () {
   player.clicks += player.cps;
-  updateUI();
 }, 1000);
