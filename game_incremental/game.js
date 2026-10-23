@@ -83,6 +83,7 @@ function buyItem(index) {
     player.cps += shopItems[index].cpsBoost;
     if (index == 3) {
       gameBtn.classList.add("new")
+      shopItems.splice(3, 3);
     }
     updateUI();
   }
