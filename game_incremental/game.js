@@ -9,6 +9,6 @@ let player = {
 function gameTick() {
   gameBtn.addEventListener("click", function () {
     player.clicks += player.clickPower;
-    gameBtn.blur(s);
+    gameBtn.blur();
   });
 }
