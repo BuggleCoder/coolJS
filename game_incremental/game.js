@@ -22,7 +22,7 @@ function shopUI() {
   if (visibleItems.length !== currentlyVisibleCount) {
     currentlyVisibleCount = visibleItems.length;
     shopEl.innerHTML = "";
-    
+
     for (let i = 0; i < shopItems.length; i++) {
       if (shopItems[i].basePrice / 2 <= player.clicks) {
         shopEl.insertAdjacentHTML(
@@ -32,23 +32,24 @@ function shopUI() {
             <span id="shopBtn${i}Price" class="btn-price">Costs ${shopItems[i].basePrice}</span>
           </button>`,
         );
+
         document
           .getElementById(`shopBtn${i}`)
           .addEventListener("click", () => buyItem(i));
       }
     }
-  }
+  } else {
+    for (let i = 0; i < shopItems.length; i++) {
+      let priceEl = document.getElementById(`shopBtn${i}Price`);
+      let btnEl = document.getElementById(`shopBtn${i}`);
+      if (priceEl && btnEl) {
+        priceEl.textContent = `Costs ${shopItems[i].basePrice}`;
 
-
-  for (let i = 0; i < shopItems.length; i++) {
-    let priceEl = document.getElementById(`shopBtn${i}Price`);
-    let btnEl = document.getElementById(`shopBtn${i}`);
-    if (priceEl && btnEl) {
-      priceEl.textContent = `Costs ${shopItems[i].basePrice}`;
-      if (player.clicks < shopItems[index].basePrice) {
-        btnEl.classList.add("disabled");
-      } else {
-        btnEl.classList.remove("disabled");
+        if (player.clicks < shopItems[i].basePrice) {
+          btnEl.classList.add("disabled");
+        } else {
+          btnEl.classList.remove("disabled");
+        }
       }
     }
   }
@@ -57,12 +58,11 @@ function shopUI() {
 function updateUI() {
   scoreEl.textContent = Math.floor(player.clicks);
   cpsEl.textContent = player.cps.toFixed(1);
+  shopUI();
 }
 
 function gameLoop(currentTime) {
-  if (!lastTime) {
-    lastTime = currentTime;
-  }
+  if (!lastTime) lastTime = currentTime;
   let deltaTime = (currentTime - lastTime) / 1000;
   lastTime = currentTime;
 
@@ -70,9 +70,9 @@ function gameLoop(currentTime) {
     player.clicks += player.cps * deltaTime;
   }
 
-  updateUI();
+  scoreEl.textContent = Math.floor(player.clicks);
   shopUI();
-  
+
   requestAnimationFrame(gameLoop);
 }
 
@@ -80,15 +80,14 @@ function buyItem(index) {
   if (player.clicks >= shopItems[index].basePrice) {
     player.clicks -= shopItems[index].basePrice;
     updateUI();
-    shopUI();
   }
 }
 
 gameBtn.addEventListener("click", function () {
   player.clicks += player.clickPower;
   updateUI();
-  shopUI();
   gameBtn.blur();
 });
 
 requestAnimationFrame(gameLoop);
+updateUI();
