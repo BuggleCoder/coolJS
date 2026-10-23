@@ -1,8 +1,12 @@
 [
   {
+    "name": "Auto-Clicker",
+    "basePrice": 15,
+    "cpsBoost": 0.5
+  },
+  {
     "name": "Monkey",
-    "basePrice": "50",
-    "cps": "1",
-    "flavor": "A monkey who is good at clicking. If by good you mean horrible."
+    "basePrice": 100,
+    "cpsBoost": 4.0
   }
 ]
