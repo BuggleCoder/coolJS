@@ -13,27 +13,35 @@ let player = {
 
 let lastTime = performance.now();
 
+// Convert string values from JSON to numbers safely if needed
+shopItems.forEach((item) => {
+  item.basePrice = Number(item.basePrice);
+  item.cps = Number(item.cps);
+});
+
 function initShop() {
   shopEl.innerHTML = "";
-  shopItems.forEach((item, index) => {
+  shopItems.forEach((item) => {
     let btn = document.createElement("button");
-    btn.id = `buy-${item.id}`;
+    // Fallback to name if id is missing in JSON
+    const itemId = item.id || item.name.toLowerCase();
+    btn.id = `buy-${itemId}`;
     btn.className = "shop-btn";
-    btn.textContent = `Buy ${item.name} (${item.cost} clicks) | +${item.cpsBonus} CPS`;
+    btn.textContent = `Buy ${item.name} (${item.basePrice} clicks) | +${item.cps} CPS`;
 
-    btn.disabled = player.clicks < item.cost;
+    btn.disabled = player.clicks < item.basePrice;
 
-    btn.addEventListener("click", () => buyItem(item, btn));
+    btn.addEventListener("click", () => buyItem(item));
     shopEl.appendChild(btn);
   });
 }
 
-function buyItem(item, btn) {
-  if (player.clicks >= item.cost) {
-    player.clicks -= item.cost;
-    player.cps += item.cpsBonus;
+function buyItem(item) {
+  if (player.clicks >= item.basePrice) {
+    player.clicks -= item.basePrice;
+    player.cps += item.cps;
 
-    item.cost = Math.ceil(item.cost * 1.15);
+    item.basePrice = Math.ceil(item.basePrice * 1.15);
 
     updateUI();
   }
@@ -44,10 +52,11 @@ function updateUI() {
   cpsEl.textContent = player.cps.toFixed(1);
 
   shopItems.forEach((item) => {
-    let btn = document.getElementById(`buy-${item.id}`);
+    const itemId = item.id || item.name.toLowerCase();
+    let btn = document.getElementById(`buy-${itemId}`);
     if (btn) {
-      btn.disabled = player.clicks < item.cost;
-      btn.textContent = `Buy ${item.name} (${item.cost} clicks) | +${item.cpsBonus} CPS`;
+      btn.disabled = player.clicks < item.basePrice;
+      btn.textContent = `Buy ${item.name} (${item.basePrice} clicks) | +${item.cps} CPS`;
     }
   });
 }
