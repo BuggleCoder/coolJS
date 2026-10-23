@@ -8,5 +8,10 @@
     "name": "Monkey",
     "basePrice": 100,
     "cpsBoost": 3.0
+  },
+  {
+    "name": "Factory",
+    "basePrice": 500,
+    "cpsBoost": 20.0
   }
 ]
