@@ -11,11 +11,16 @@ let player = {
   clickPower: 1,
 };
 
+let lastTime = 0;
+
 function shopUI() {
-  for (let i = 0; i < shopItems.length(); i++) {
+  shopEl.innerHTML = "";
+
+  for (let i = 0; i < shopItems.length; i++) {
     if (shopItems[i].basePrice / 2 <= player.clicks) {
-      shopEl.append(
-        `<button class="shopBtn" id="shopBtn${i}">${shopItems[i].name}<button>`,
+      shopEl.insertAdjacentHTML(
+        "beforeend",
+        `<button class="shopBtn" id="shopBtn${i}">${shopItems[i].name}</button>`,
       );
     }
   }
@@ -28,9 +33,13 @@ function updateUI() {
 }
 
 function gameLoop(currentTime) {
-  if (player.cps > 0) {
+  if (!lastTime) lastTime = currentTime;
+  let deltaTime = (currentTime - lastTime) / 1000;
+
+  if (player.cps > 0 && deltaTime >= 1) {
     player.clicks += player.cps;
     updateUI();
+    lastTime = currentTime;
   }
 
   requestAnimationFrame(gameLoop);
