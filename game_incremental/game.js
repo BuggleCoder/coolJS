@@ -1,4 +1,4 @@
-import shopItems from "./json/shop.json" assert { type: "json" };
+import shopItems from "./json/shop.json" with { type: "json" };
 
 let gameBtn = document.getElementById("game-btn");
 let scoreEl = document.getElementById("score");
@@ -79,6 +79,7 @@ function gameLoop(currentTime) {
 function buyItem(index) {
   if (player.clicks >= shopItems[index].basePrice) {
     player.clicks -= shopItems[index].basePrice;
+    player.cps += shopItems[index].cpsBoost;
     updateUI();
   }
 }
