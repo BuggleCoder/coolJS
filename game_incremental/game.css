@@ -29,7 +29,7 @@ body {
   transform: scale(0.9);
 }
 
-button.new {
+#game-btn.new {
   background-image: linear-gradient(to right, #ff7e5f, #feb47b);
   border-color: #000000;
   border-style: solid;
@@ -38,6 +38,6 @@ button.new {
   transition: 0.2s ease;
 }
 
-button.new:active {
+#game-btn.new:active {
   transform: scale(0.9);
 }
