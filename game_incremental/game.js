@@ -81,6 +81,7 @@ function buyItem(index) {
   if (player.clicks >= shopItems[index].basePrice) {
     player.clicks -= shopItems[index].basePrice;
     player.cps += shopItems[index].cpsBoost;
+    if (index == 2) {}
     updateUI();
   }
 }
