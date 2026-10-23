@@ -11,4 +11,7 @@ function gameTick() {
     player.clicks += player.clickPower;
     gameBtn.blur();
   });
+  player.clicks += player.cps;
 }
+
+setInterval(1000, gameTick());
