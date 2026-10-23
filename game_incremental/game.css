@@ -24,3 +24,7 @@ body {
 .shopBtn:hover {
   background-color: #ffeffe;
 }
+
+.shopBtn:active {
+  transform: scale(0.97);
+}
