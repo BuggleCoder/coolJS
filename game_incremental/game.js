@@ -19,11 +19,11 @@ function shopUI() {
   let visibleItems = shopItems.filter(
     (item) => item.basePrice / 2 <= player.clicks,
   );
-
+  
   if (visibleItems.length !== currentlyVisibleCount) {
     currentlyVisibleCount = visibleItems.length;
     shopEl.innerHTML = "";
-
+    
     for (let i = 0; i < shopItems.length; i++) {
       if (shopItems[i].basePrice / 2 <= player.clicks) {
         shopEl.insertAdjacentHTML(
@@ -33,10 +33,10 @@ function shopUI() {
             <span id="shopBtn${i}Price" class="btn-price">Costs ${shopItems[i].basePrice}</span>
           </button>`,
         );
-
+        
         document
-          .getElementById(`shopBtn${i}`)
-          .addEventListener("click", () => buyItem(i));
+        .getElementById(`shopBtn${i}`)
+        .addEventListener("click", () => buyItem(i));
       }
     }
   } else {
@@ -45,7 +45,7 @@ function shopUI() {
       let btnEl = document.getElementById(`shopBtn${i}`);
       if (priceEl && btnEl) {
         priceEl.textContent = `Costs ${shopItems[i].basePrice}`;
-
+        
         if (player.clicks < shopItems[i].basePrice) {
           btnEl.classList.add("disabled");
         } else {
@@ -66,14 +66,14 @@ function gameLoop(currentTime) {
   if (!lastTime) lastTime = currentTime;
   let deltaTime = (currentTime - lastTime) / 1000;
   lastTime = currentTime;
-
+  
   if (player.cps > 0) {
     player.clicks += player.cps * deltaTime;
   }
-
+  
   scoreEl.textContent = Math.floor(player.clicks);
   shopUI();
-
+  
   requestAnimationFrame(gameLoop);
 }
 
@@ -81,9 +81,9 @@ function buyItem(index) {
   if (player.clicks >= shopItems[index].basePrice) {
     player.clicks -= shopItems[index].basePrice;
     if (shopItems[index].name == "Better Mice") {
-player.clickPower += 50
+      player.clickPower *= 2
     } else {
-    player.cps += shopItems[index].cpsBoost;
+      player.cps += shopItems[index].cpsBoost;
     }
     if (shopItems[index].name == "Site Revamp") {
       gameBtn.classList.add("new")
