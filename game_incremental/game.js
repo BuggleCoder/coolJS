@@ -9,7 +9,7 @@ let minigameEl = document.getElementById("minigame-container");
 let player = {
   cps: 0,
   clicks: 0,
-  clickPower: 1,
+  clickPower: 1000,
 };
 
 let lastTime = 0;

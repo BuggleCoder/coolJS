@@ -40,19 +40,24 @@ body {
   transition: background-color 0.2s ease;
 }
 
+#game-btn:active {
+  transform: scale(0.9);
+}
+
 #game-btn:hover {
   background-color: #fffffe;
 }
 
 #game-btn.new {
   background-image: linear-gradient(to right, #ff7e5f, #feb47b);
-  border-color: #000000;
-  border-style: solid;
-  border-radius: 10px;
-  padding: 10px 20px;
   transition: 0.2s ease;
 }
 
-#game-btn:active {
-  transform: scale(0.9);
+#game-btn.better {
+  background-image: linear-gradient(to right, #ff7e5f, #feb47b);
+  transition: 0.3s ease-in-out;
+}
+
+#game-btn.better:hover {
+  transform: translateX(2.5px) translateY(2.5px);
 }
