@@ -7,6 +7,8 @@ const cpsEl = document.getElementById("cps");
 const shopEl = document.getElementById("shop-btns");
 const minigameEl = document.getElementById("minigame-container");
 const gameEl = document.getElementById("game-section");
+const gameText = document.getElementById("game-message");
+
 
 if (!gameBtn || !scoreEl || !cpsEl || !shopEl || !minigameEl) {
   throw new Error(
@@ -257,9 +259,6 @@ function buyItem(index) {
   
   if (name === "Better Mice") {
     player.clickPower += 20;
-  } else if (name === "Improved UI") {
-    gameEl.classList.add("improved")
-    removeShopItem(7);
   } else {
     const boost = Number(item.cpsBoost);
     
@@ -278,8 +277,13 @@ function buyItem(index) {
     gameBtn.classList.add("better");
     removeShopItem(6);
     document.title = "Better Clicker Game";
+    gameText.textContent = "Welcome to Better Clicker Game"
   }
   
+  if (name === "Improved Game") {
+    removeShopItem(7);
+    gameText.textContent = "Welcome to the improved clicker game";
+  }
   updateUI();
 }
 
