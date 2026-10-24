@@ -88,6 +88,7 @@ player.clickPower += 50
     if (shopItems[index].name == "Site Revamp") {
       gameBtn.classList.add("new")
       shopItems.splice(3, 1);
+      document.title = "Clicker Game"
     }
     updateUI();
   }
