@@ -98,7 +98,7 @@ function shopUI() {
 }
 
 function minigameUI() {
-  minigameEl.innerHTML = "";
+  minigameEl.innerHTML = "<h2> Minigames <h2>";
 
   player.minigames.forEach((minigame, i) => {
     minigameEl.insertAdjacentHTML(
