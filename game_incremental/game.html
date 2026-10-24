@@ -1,27 +1,29 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Game</title>
   <link rel="stylesheet" href="game.css">
 </head>
 <body>
-  
-  <div class="stats">
-    <p>Clicks: <span id="score">0</span></p>
-    <p>CPS: <span id="cps">0.0</span></p>
+
+  <div class="game-section">
+    <div class="stats">
+      <p>Clicks: <span id="score">0</span></p>
+      <p>CPS: <span id="cps">0.0</span></p>
+    </div>
+
+    <button id="game-btn" type="button">CLICK ME!</button>
+
+    <h2>Shop</h2>
+    <div id="shop-btns"></div>
   </div>
-  
-  <button id="game-btn">CLICK ME!</button>
-  
-  <h2>Shop</h2>
-  <div id="shop-btns"></div>
 
-  <br>
-
-  <h2> Minigames <h2></h2>
-  <div id="minigame-container"></div>
+  <div class="minigame-section">
+    <div id="minigame-container"></div>
+  </div>
 
   <script type="module" src="game.js"></script>
 </body>

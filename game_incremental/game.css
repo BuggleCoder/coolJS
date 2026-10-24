@@ -3,6 +3,9 @@ body {
   text-align: center;
   padding: 20px;
   color: #000000;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .stats {
@@ -62,3 +65,80 @@ body {
   transform: translateX(2.5px) translateY(2.5px);
 }
 
+.shopBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.btn-name {
+  margin-right: 12px;
+}
+
+.btn-price {
+  white-space: nowrap;
+}
+
+#minigame-container {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  width: 250px;
+  min-height: 200px;
+}
+
+#minigame-container .minigame {
+  margin-bottom: 15px;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+.game-section {
+  width: min(100%, 600px);
+  margin-right: auto;
+}
+
+#shop-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.shopBtn {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.minigame-section {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 250px;
+}
+
+#minigame-container {
+  position: static;
+  width: 100%;
+  min-height: 0;
+}
+
+@media (max-width: 700px) {
+  body {
+    display: block;
+  }
+
+  .game-section {
+    width: 100%;
+  }
+
+  .minigame-section {
+    position: static;
+    width: 100%;
+    margin-top: 30px;
+  }
+}
