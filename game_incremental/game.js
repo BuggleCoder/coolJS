@@ -80,7 +80,11 @@ function gameLoop(currentTime) {
 function buyItem(index) {
   if (player.clicks >= shopItems[index].basePrice) {
     player.clicks -= shopItems[index].basePrice;
+    if (index == 5) {
+player.clickPower += 50
+    } else {
     player.cps += shopItems[index].cpsBoost;
+    }
     if (index == 3) {
       gameBtn.classList.add("new")
       shopItems.splice(3, 3);

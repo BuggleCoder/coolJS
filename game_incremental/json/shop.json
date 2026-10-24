@@ -27,6 +27,6 @@
   {
     "name": "Better Mice",
     "basePrice": 5000,
-    "cpsBoost": 300.0
+    "cpsBoost": 0
   }
 ]
