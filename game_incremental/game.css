@@ -65,6 +65,11 @@ body {
   transform: translateX(2.5px) translateY(2.5px);
 }
 
+#game-btn.better:active {
+  transform: scale(0.9);
+}
+
+
 .shopBtn {
   display: flex;
   align-items: center;
