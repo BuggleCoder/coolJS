@@ -30,13 +30,8 @@
     "cpsBoost": 0
   },
   {
-    "name": "Better CSS",
+    "name": "Site Revamp II",
     "basePrice": 5000,
     "cpsBoost": 150
-  },
-  {
-    "name": "Improved Game",
-    "basePrice": 10000,
-    "cpsBoost": 0
   }
 ]

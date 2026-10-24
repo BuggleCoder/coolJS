@@ -270,19 +270,16 @@ function buyItem(index) {
   if (name === "Site Revamp") {
     gameBtn.classList.add("new");
     removeShopItem(3);
-    document.title = "Clicker Game";
+    if (document.title !== "Better Clicker Game") {
+      document.title = "Clicker Game";
+    }
   }
   
-  if (name === "Better CSS") {
+  if (name === "Site Revamp II") {
     gameBtn.classList.add("better");
     removeShopItem(6);
     document.title = "Better Clicker Game";
     gameText.textContent = "Welcome to Better Clicker Game"
-  }
-  
-  if (name === "Improved Game") {
-    removeShopItem(7);
-    gameText.textContent = "Welcome to the improved clicker game";
   }
   updateUI();
 }
