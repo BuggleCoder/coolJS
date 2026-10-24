@@ -281,6 +281,12 @@ function buyItem(index) {
     document.title = "Better Clicker Game";
     gameText.textContent = "Welcome to Better Clicker Game"
   }
+  
+  if (name === "Guerrilla Gorillas") {
+    player.clickPower += 50;
+    if (player.minigames.includes("gorilla"))
+    player.minigames.push("");
+  }
   updateUI();
 }
 

@@ -33,5 +33,10 @@
     "name": "Site Revamp II",
     "basePrice": 5000,
     "cpsBoost": 150
+  },
+  {
+    "name": "Guerrilla Gorillas",
+    "basePrice": 10000,
+    "cpsBoost": 0
   }
 ]
