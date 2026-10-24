@@ -33,5 +33,10 @@
     "name": "Better CSS",
     "basePrice": 5000,
     "cpsBoost": 150
+  },
+  {
+    "name": "Dice Roller",
+    "basePrice": 10000,
+    "cpsBoost": 0
   }
 ]

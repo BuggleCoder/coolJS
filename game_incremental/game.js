@@ -10,6 +10,7 @@ let player = {
   cps: 0,
   clicks: 0,
   clickPower: 1000,
+  minigames: []
 };
 
 function getRandomInt(min, max) {
@@ -64,6 +65,7 @@ function updateUI() {
   scoreEl.textContent = Math.floor(player.clicks);
   cpsEl.textContent = player.cps.toFixed(1);
   shopUI();
+  minigameUI();
 }
 
 function gameLoop(currentTime) {
@@ -81,11 +83,24 @@ function gameLoop(currentTime) {
   requestAnimationFrame(gameLoop);
 }
 
+function minigameUI() {
+  minigameEl.innerHTML = "";
+
+  player.minigames.forEach((minigame, i) => {
+    minigameEl.insertAdjacentHTML(
+      "beforeend",
+      `<div class="minigame" id="minigame${i}">${minigame}</div>`
+    );
+  });
+}
+
 function buyItem(index) {
   if (player.clicks >= shopItems[index].basePrice) {
     player.clicks -= shopItems[index].basePrice;
     if (shopItems[index].name == "Better Mice") {
       player.clickPower += 20;
+    } else if (shopItems[index].name == "Dice Roller") {
+      player.minigames.push("Dice Roller")
     } else {
       player.cps += shopItems[index].cpsBoost;
     }
