@@ -225,8 +225,8 @@ function buyItem(index) {
 
   if (name === "Better Mice") {
     player.clickPower += 20;
-  } else if (name === "Dice Roller") {
-    player.minigames.push("Dice Roller");
+  } else if (name === "Improved UI") {
+    player.minigames.push("Improved UI");
   } else {
     const boost = Number(item.cpsBoost);
 
