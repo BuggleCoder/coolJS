@@ -89,6 +89,10 @@ function buyItem(index) {
       gameBtn.classList.add("new")
       shopItems.splice(3, 1);
       document.title = "Clicker Game"
+    } else if (shopItems[index].name == "Better CSS") {
+      gameBtn.classList.add("better")
+      shopItems.splice(6, 1);
+      document.title = "Better Clicker Game"
     }
     updateUI();
   }
