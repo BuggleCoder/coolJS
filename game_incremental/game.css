@@ -56,7 +56,3 @@ body {
 #game-btn:active {
   transform: scale(0.9);
 }
-
-.hidden {
-  display: none;
-}
