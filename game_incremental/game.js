@@ -81,7 +81,7 @@ function buyItem(index) {
   if (player.clicks >= shopItems[index].basePrice) {
     player.clicks -= shopItems[index].basePrice;
     if (shopItems[index].name == "Better Mice") {
-      player.clickPower *= 2
+      player.clickPower += 20
     } else {
       player.cps += shopItems[index].cpsBoost;
     }
