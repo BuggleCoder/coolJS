@@ -177,27 +177,11 @@ function shopUI() {
 }
 
 function minigameUI() {
-  const uniqueMinigames = [...new Set(player.minigames)];
-  const minigameKey = uniqueMinigames.join("|");
-  
-  if (minigameKey === currentMinigameKey) {
-    return;
-  }
-  
-  currentMinigameKey = minigameKey;
-  minigameEl.replaceChildren();
-  
-  for (const minigame of uniqueMinigames) {
-    const container = document.createElement("div");
-    
-    container.className = "minigame";
-    
-    const heading = document.createElement("h3");
-    
-    heading.textContent = String(minigame);
-    
-    container.appendChild(heading);
-    minigameEl.appendChild(container);
+  minigameEl.innerHTML = "";
+  for (let i = 0; i < player.minigames.length; i++) {
+    if (player.minigames[i] == "gorillas") {
+      minigameEl.insertAdjacentElement("beforeend", `<div class="minigame" id="minigame${player.minigames[i]}"></div>`)
+    }
   }
 }
 
