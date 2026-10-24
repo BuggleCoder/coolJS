@@ -12,6 +12,10 @@ let player = {
   clickPower: 1000,
 };
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 let lastTime = 0;
 let currentlyVisibleCount = 0;
 
