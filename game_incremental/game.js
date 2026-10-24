@@ -87,7 +87,7 @@ player.clickPower += 50
     }
     if (index == 3) {
       gameBtn.classList.add("new")
-      shopItems.splice(3, 3);
+      shopItems.splice(3, 1);
     }
     updateUI();
   }
