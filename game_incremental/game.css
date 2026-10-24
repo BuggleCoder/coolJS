@@ -29,6 +29,21 @@ body {
   transform: scale(0.9);
 }
 
+#game-btn {
+  background: #ffffff;
+  font-family: sans-serif;
+  color: #000000;
+  padding: 10px 20px;
+  border-color: #000000;
+  border-style: solid;
+  border-radius: 10px;
+  transition: background-color 0.2s ease;
+}
+
+#game-btn:hover {
+  background-color: #ffeffe;
+}
+
 #game-btn.new {
   background-image: linear-gradient(to right, #ff7e5f, #feb47b);
   border-color: #000000;
@@ -38,6 +53,6 @@ body {
   transition: 0.2s ease;
 }
 
-#game-btn.new:active {
+#game-btn:active {
   transform: scale(0.9);
 }
