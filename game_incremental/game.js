@@ -13,8 +13,18 @@ if (!gameBtn || !scoreEl || !cpsEl || !shopEl || !minigameEl) {
   );
 }
 
-if (!Array.isArray(shopItems)) {
-  throw new Error("Shop initialization failed: shop.json must contain an array.");
+if (
+  !Array.isArray(shopItems) ||
+  shopItems.some(
+    item =>
+      !item ||
+      typeof item !== "object" ||
+      Array.isArray(item)
+  )
+) {
+  throw new Error(
+    "Shop initialization failed: shop.json must contain an array of objects."
+  );
 }
 
 const player = {
@@ -27,15 +37,18 @@ const player = {
 };
 
 let lastTime = null;
-let currentShopKey = "";
-let currentMinigameKey = "";
-let animationFrame = null;
+let currentShopKey = null;
+let currentMinigameKey = null;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
 
-  if (!Number.isFinite(min) || !Number.isFinite(max) || min > max) {
+  if (
+    !Number.isFinite(min) ||
+    !Number.isFinite(max) ||
+    min > max
+  ) {
     throw new RangeError("Invalid random integer range.");
   }
 
@@ -121,15 +134,20 @@ function shopUI() {
 
     for (const { item, index } of visibleItems) {
       const button = document.createElement("button");
+
       button.type = "button";
       button.id = `shopBtn${index}`;
       button.className = "shopBtn";
 
       const name = document.createElement("span");
+
       name.className = "btn-name";
-      name.textContent = String(item.name ?? `Item ${index + 1}`);
+      name.textContent = String(
+        item.name ?? `Item ${index + 1}`
+      );
 
       const price = document.createElement("span");
+
       price.id = `shopBtn${index}Price`;
       price.className = "btn-price";
 
@@ -148,7 +166,8 @@ function shopUI() {
 
     const cost = getItemPrice(item);
 
-    price.textContent = `Costs ${cost}`;
+    price.textContent = `Costs ${cost.toLocaleString()}`;
+
     button.disabled = player.clicks < cost;
     button.classList.toggle("disabled", button.disabled);
   }
@@ -158,16 +177,20 @@ function minigameUI() {
   const uniqueMinigames = [...new Set(player.minigames)];
   const minigameKey = uniqueMinigames.join("|");
 
-  if (minigameKey === currentMinigameKey) return;
+  if (minigameKey === currentMinigameKey) {
+    return;
+  }
 
   currentMinigameKey = minigameKey;
   minigameEl.replaceChildren();
 
   for (const minigame of uniqueMinigames) {
     const container = document.createElement("div");
+
     container.className = "minigame";
 
     const heading = document.createElement("h3");
+
     heading.textContent = String(minigame);
 
     container.appendChild(heading);
@@ -202,23 +225,31 @@ function gameLoop(currentTime) {
   }
 
   updateUI();
-  animationFrame = requestAnimationFrame(gameLoop);
+  requestAnimationFrame(gameLoop);
 }
 
 function buyItem(index) {
-  if (!Number.isInteger(index)) return;
+  if (!Number.isInteger(index)) {
+    return;
+  }
 
   const item = shopItems[index];
 
-  if (!item || isRemoved(index) || isPurchased(index)) return;
+  if (!item || isRemoved(index) || isPurchased(index)) {
+    return;
+  }
 
   const price = getItemPrice(item);
 
-  if (!Number.isFinite(price) || player.clicks < price) return;
+  if (!Number.isFinite(price) || player.clicks < price) {
+    return;
+  }
 
   const name = String(item.name ?? "");
 
-  if (!name) return;
+  if (!name) {
+    return;
+  }
 
   player.clicks -= price;
   player.purchasedItems.push(index);
@@ -227,6 +258,7 @@ function buyItem(index) {
     player.clickPower += 20;
   } else if (name === "Improved UI") {
     player.minigames.push("Improved UI");
+    removeShopItem(7);
   } else {
     const boost = Number(item.cpsBoost);
 
@@ -247,7 +279,6 @@ function buyItem(index) {
     document.title = "Better Clicker Game";
   }
 
-  currentShopKey = "";
   updateUI();
 }
 
@@ -256,7 +287,7 @@ function removeShopItem(index) {
     Number.isInteger(index) &&
     index >= 0 &&
     index < shopItems.length &&
-    !player.removedItems.includes(index)
+    !isRemoved(index)
   ) {
     player.removedItems.push(index);
   }
@@ -269,4 +300,4 @@ gameBtn.addEventListener("click", () => {
 });
 
 updateUI();
-animationFrame = requestAnimationFrame(gameLoop);
+requestAnimationFrame(gameLoop);
