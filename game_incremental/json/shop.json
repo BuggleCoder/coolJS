@@ -23,5 +23,10 @@
     "name": "City",
     "basePrice": 1500,
     "cpsBoost": 80.0
+  },
+  {
+    "name": "Better Mice",
+    "basePrice": 5000,
+    "cpsBoost": 300.0
   }
 ]
