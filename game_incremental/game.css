@@ -92,6 +92,7 @@ body {
   top: 20px;
   width: 250px;
   min-height: 200px;
+  
 }
 
 #minigame-container .minigame {
@@ -120,7 +121,6 @@ body {
 }
 
 .minigame-section {
-  position: fixed;
   top: 20px;
   right: 20px;
   width: 250px;
@@ -132,21 +132,6 @@ body {
   min-height: 0;
 }
 
-@media (max-width: 700px) {
-  body {
-    display: block;
-  }
-  
-  .game-section {
-    width: 100%;
-  }
-  
-  .minigame-section {
-    position: static;
-    width: 100%;
-    margin-top: 30px;
-  }
-}
 
 button {
   background: #ffffff;
@@ -157,4 +142,12 @@ button {
   border-style: solid;
   border-radius: 10px;
   transition: background-color 0.2s ease;
+}
+
+.bananas-btn {
+  display: block;
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
 }

@@ -195,6 +195,7 @@ function minigameUI() {
     element.id = "minigame-gorillas";
     
     element.innerHTML = `
+    <div id="gorilla-game-container">
       <h3>Gorilla Operations</h3>
     
       <p>
@@ -203,33 +204,27 @@ function minigameUI() {
         /
         <span id="banana-storage-counter"></span>
       </p>
-    
+    <br>
       <p>
         Bananas per mission:
         <span id="banana-gain-counter"></span>
       </p>
-    
+    <br>
       <button type="button" id="collect-bananas" class="bananas-btn">
         Complete Mission
-      </button>
-    
-      <hr>
-    
+      </button> 
       <button type="button" id="exchange-bananas" class="bananas-btn">
         Exchange 10 Bananas for 3000 Clicks
       </button>
-    
-      <hr>
-    
       <button type="button" id="storage-bananas" class="bananas-btn">
         Buy Storage Upgrade
       </button>
-    
       <button type="button" id="upgrade-banana-gain" class="bananas-btn">
         Upgrade Mission Rewards
       </button>
     
       <p id="gorilla-message"></p>
+      </div>
     `;
     
     element.querySelector("#collect-bananas").addEventListener("click", () => {
@@ -324,8 +319,6 @@ function minigameUI() {
   gainBtn.disabled =
   player.bananas < player.bananaGainUpgradeCost;
 }
-
-
 
 function updateUI() {
   scoreEl.textContent = Math.floor(player.clicks).toLocaleString();
