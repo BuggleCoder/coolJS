@@ -1,1 +1,0 @@
-import cursors from "./json/cursor.json" with { type: "json" };
