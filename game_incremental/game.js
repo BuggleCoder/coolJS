@@ -36,7 +36,8 @@ const player = {
   clickPower: 1000,
   removedItems: [],
   purchasedItems: [],
-  itemQuantities: {}
+  itemQuantities: {},
+  monkeyBucks: 0
 };
 
 let lastTime = null;
