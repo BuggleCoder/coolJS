@@ -273,6 +273,11 @@ function buyItem(index) {
     }
     gameText.textContent = "The gorillas arrived before we placed the order..."
   }
+    
+  if (name === "Monkey Business") {
+    player.clickPower += 100;
+    gameText.textContent = "Monkeys are good for business- as a new study"
+  }
   updateUI();
 }
 

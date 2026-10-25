@@ -43,5 +43,10 @@
     "name": "Puppy Servants",
     "basePrice": 15000,
     "cpsBoost": 500
+  },
+  {
+    "name": "Monkey Business",
+    "basePrice": 25000,
+    "cpsBoost": 0
   }
 ]
