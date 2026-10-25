@@ -2,58 +2,69 @@
   {
     "name": "Auto-Clicker",
     "basePrice": 20,
-    "cpsBoost": 0.5
+    "cpsBoost": 0.5,
+    "icon": "./img/upgrades/autoclicker.png"
   },
   {
     "name": "Monkey",
     "basePrice": 100,
-    "cpsBoost": 3.0
+    "cpsBoost": 3.0,
+    "icon": "./img/upgrades/monkey.png"
   },
   {
     "name": "Factory",
     "basePrice": 500,
-    "cpsBoost": 20.0
+    "cpsBoost": 20.0,
+    "icon": "./img/upgrades/factory.png"
   },
   {
     "name": "Better Mice",
     "basePrice": 5000,
-    "cpsBoost": 0
+    "cpsBoost": 0,
+    "icon": "./img/upgrades/better-mice.png"
   },
   {
     "name": "Banana Warehouse",
     "basePrice": 5000,
-    "cpsBoost": 150
+    "cpsBoost": 150,
+    "icon": "./img/upgrades/banana-warehouse.png"
   },
   {
     "name": "Puppy Servants",
     "basePrice": 15000,
-    "cpsBoost": 500
+    "cpsBoost": 500,
+    "icon": "./img/upgrades/puppy-servants.png"
   },
   {
     "name": "Monkey Business",
     "basePrice": 25000,
-    "cpsBoost": 0
+    "cpsBoost": 0,
+    "icon": "./img/upgrades/monkey-business.png"
   },
   {
     "name": "Questionable Interns",
     "basePrice": 75000,
-    "cpsBoost": 1750
+    "cpsBoost": 1750,
+    "icon": "./img/upgrades/questionable-interns.png"
   },
   {
     "name": "Silverback Salesmen",
     "basePrice": 150000,
-    "cpsBoost": 3500
+    "cpsBoost": 3500,
+    "icon": "./img/upgrades/silverback-salesmen.png"
   },
   {
     "name": "Banana Research Lab",
     "basePrice": 300000,
     "cpsBoost": 0,
-    "maxOwned": 1
+    "maxOwned": 1,
+    "icon": "./img/upgrades/banana-research-lab.png"
   },
   {
     "name": "Monkey Space Division",
     "basePrice": 450000,
     "cpsBoost": 0,
-    "maxOwned": 1
+    "maxOwned": 1,
+    "icon": "./img/upgrades/monkey-space-division.png"
   }
 ]
