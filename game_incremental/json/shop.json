@@ -47,6 +47,13 @@
   {
     "name": "Banana Research Lab",
     "basePrice": 300000,
-    "cpsBoost": 0
+    "cpsBoost": 0,
+    "maxOwned": 1
+  },
+  {
+    "name": "Monkey Space Division",
+    "basePrice": 450000,
+    "cpsBoost": 0,
+    "maxOwned": 1
   }
 ]

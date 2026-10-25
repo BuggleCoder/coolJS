@@ -1,4 +1,3 @@
-
 import shopItems from "./json/shop.json" with { type: "json" };
 import cursors from "./json/cursor.json" with { type: "json" };
 
@@ -7,6 +6,8 @@ const scoreEl = document.getElementById("score");
 const cpsEl = document.getElementById("cps");
 const shopEl = document.getElementById("shop-btns");
 const gameText = document.getElementById("game-message");
+
+const COST_MULTIPLIER = 1.15;
 
 if (!gameBtn || !scoreEl || !cpsEl || !shopEl) {
   throw new Error(
@@ -25,21 +26,27 @@ if (
   );
 }
 
+if (!Array.isArray(cursors)) {
+  console.warn("cursor.json should contain an array of cursor objects.");
+}
+
 const player = {
   cps: 0,
   clicks: 0,
   clickPower: 1000,
   removedItems: [],
   purchasedItems: [],
+  itemQuantities: {}
 };
 
 let lastTime = null;
 let currentShopKey = null;
+let animationStarted = false;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  
+
   if (
     !Number.isFinite(min) ||
     !Number.isFinite(max) ||
@@ -47,7 +54,7 @@ function getRandomInt(min, max) {
   ) {
     throw new RangeError("Invalid random integer range.");
   }
-  
+
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -55,7 +62,7 @@ function convertToRoman(num) {
   if (!Number.isSafeInteger(num) || num < 1) {
     return "";
   }
-  
+
   const romanMap = [
     [1000, "M"],
     [900, "CM"],
@@ -69,26 +76,62 @@ function convertToRoman(num) {
     [9, "IX"],
     [5, "V"],
     [4, "IV"],
-    [1, "I"],
+    [1, "I"]
   ];
-  
+
   let result = "";
-  
+
   for (const [value, numeral] of romanMap) {
     const count = Math.floor(num / value);
+
     result += numeral.repeat(count);
     num %= value;
   }
-  
+
   return result;
 }
 
-function getItemPrice(item) {
-  const price = Number(item.basePrice);
-  
-  return Number.isFinite(price) && price >= 0
-  ? price
-  : Infinity;
+function formatNumber(num) {
+  if (num === Infinity) return "Infinity";
+  if (!Number.isFinite(num) || num < 0) return "0";
+
+  if (num < 1_000_000) {
+    return Math.floor(num).toLocaleString();
+  }
+
+  const suffixes = [
+    "", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc",
+    "No", "Dc", "UDc", "DDc", "TDc", "QaDc", "QiDc",
+    "SxDc", "SpDc", "OcDc", "NoDc", "Vg"
+  ];
+
+  const tier = Math.floor(Math.log10(num) / 3);
+
+  if (tier >= suffixes.length) {
+    return num.toExponential(2);
+  }
+
+  const scale = Math.pow(10, tier * 3);
+  const scaledNumber = num / scale;
+
+  return `${scaledNumber.toFixed(2)} ${suffixes[tier]}`;
+}
+
+function getItemPrice(item, index) {
+  const basePrice = Number(item.basePrice);
+
+  if (!Number.isFinite(basePrice) || basePrice < 0) {
+    return Infinity;
+  }
+
+  const amountOwned = player.itemQuantities[index] || 0;
+  const price = basePrice * Math.pow(COST_MULTIPLIER, amountOwned);
+
+  if (!Number.isFinite(price)) {
+    return Infinity;
+  }
+
+  return Math.floor(price);
 }
 
 function isRemoved(index) {
@@ -96,75 +139,92 @@ function isRemoved(index) {
 }
 
 function canShowItem(item, index) {
-  const price = getItemPrice(item);
-  
+  const price = getItemPrice(item, index);
+  const amountOwned = player.itemQuantities[index] || 0;
+
+  if (
+    Number.isFinite(item.maxOwned) &&
+    amountOwned >= item.maxOwned
+  ) {
+    return false;
+  }
+
   return (
     !isRemoved(index) &&
     Number.isFinite(price) &&
-    price / 2 <= player.clicks
+    price <= player.clicks
   );
 }
 
 function getVisibleItems() {
   return shopItems
-  .map((item, index) => ({ item, index }))
-  .filter(({ item, index }) => canShowItem(item, index));
+    .map((item, index) => ({ item, index }))
+    .filter(({ item, index }) => canShowItem(item, index));
 }
 
 function shopUI() {
   const visibleItems = getVisibleItems();
-  
+
   const visibleKey = visibleItems
-  .map(({ index }) => index)
-  .join(",");
-  
+    .map(({ index }) => index)
+    .join(",");
+
   if (visibleKey !== currentShopKey) {
     currentShopKey = visibleKey;
     shopEl.replaceChildren();
-    
-    for (const { item, index } of visibleItems) {
+
+    for (const { index } of visibleItems) {
       const button = document.createElement("button");
-      
+
       button.type = "button";
       button.id = `shopBtn${index}`;
       button.className = "shopBtn";
-      
+
       const name = document.createElement("span");
       name.className = "btn-name";
-      name.textContent = String(
-        item.name ?? `Item ${index + 1}`
-      );
-      
+
       const price = document.createElement("span");
       price.id = `shopBtn${index}Price`;
       price.className = "btn-price";
-      
+
       button.append(name, price);
       button.addEventListener("click", () => buyItem(index));
-      
+
       shopEl.appendChild(button);
     }
   }
-  
+
   for (const { item, index } of visibleItems) {
     const button = document.getElementById(`shopBtn${index}`);
-    const price = document.getElementById(`shopBtn${index}Price`);
-    
-    if (!button || !price) continue;
-    
-    const cost = getItemPrice(item);
-    
-    price.textContent = `Costs ${cost.toLocaleString()}`;
-    
+    const nameSpan = button?.querySelector(".btn-name");
+    const priceSpan = document.getElementById(`shopBtn${index}Price`);
+
+    if (!button || !priceSpan || !nameSpan) continue;
+
+    const cost = getItemPrice(item, index);
+    const amountOwned = player.itemQuantities[index] || 0;
+
+    const romanTier =
+      amountOwned > 0 ? ` ${convertToRoman(amountOwned)}` : "";
+
+    nameSpan.textContent =
+      String(item.name ?? `Item ${index + 1}`) + romanTier;
+
+    priceSpan.textContent = `Costs ${formatNumber(cost)}`;
+
     button.disabled = player.clicks < cost;
     button.classList.toggle("disabled", button.disabled);
   }
 }
 
 function updateUI() {
-  scoreEl.textContent = Math.floor(player.clicks).toLocaleString();
-  cpsEl.textContent = player.cps.toFixed(1);
-  
+  scoreEl.textContent = formatNumber(player.clicks);
+
+  cpsEl.textContent =
+    player.cps < 1000
+      ? player.cps.toFixed(1)
+      : formatNumber(player.cps);
+
   shopUI();
 }
 
@@ -172,85 +232,151 @@ function gameLoop(currentTime) {
   if (lastTime === null) {
     lastTime = currentTime;
   }
-  
+
   let deltaTime = (currentTime - lastTime) / 1000;
   lastTime = currentTime;
-  
+
   if (!Number.isFinite(deltaTime) || deltaTime < 0) {
     deltaTime = 0;
   }
-  
+
+  // Prevent huge jumps if the tab is left inactive.
   deltaTime = Math.min(deltaTime, 1);
-  
+
   if (player.cps > 0) {
     player.clicks += player.cps * deltaTime;
   }
-  
+
   updateUI();
   requestAnimationFrame(gameLoop);
 }
 
 function buyItem(index) {
   if (!Number.isInteger(index)) return;
-  
+
   const item = shopItems[index];
-  
+
   if (!item || isRemoved(index)) return;
-  
-  const price = getItemPrice(item);
-  
+
+  const amountOwned = player.itemQuantities[index] || 0;
+
+  if (
+    Number.isFinite(item.maxOwned) &&
+    amountOwned >= item.maxOwned
+  ) {
+    return;
+  }
+
+  const price = getItemPrice(item, index);
+
   if (!Number.isFinite(price) || player.clicks < price) {
     return;
   }
-  
+
   const name = String(item.name ?? "");
-  
+
   if (!name) return;
-  
+
+  // Deduct the cost and update ownership.
   player.clicks -= price;
+  player.itemQuantities[index] = amountOwned + 1;
   player.purchasedItems.push(index);
-  
+
+  // Apply the item's production boost.
   if (name === "Better Mice") {
     player.clickPower += 20;
   } else {
     const boost = Number(item.cpsBoost);
-    
+
     if (Number.isFinite(boost) && boost > 0) {
       player.cps += boost;
     }
   }
-  
-  if (name === "Monkey Business") {
-    player.clickPower += 100;
-    
-    if (gameText) {
-      gameText.textContent =
-      "Monkeys are good for business—as a new study shows...";
+
+  // Special upgrades and their messages.
+  const specialItems = {
+    "Monkey Business": {
+      clickPower: 100,
+      message:
+        "Monkeys are good for business—as a new study shows..."
+    },
+
+    "Questionable Interns": {
+      message:
+        "They don't remember applying for the job..."
+    },
+
+    "Banana Research Lab": {
+      clickPower: 2000,
+      message: "Results: Potassium"
+    },
+
+    "Orbital Chimp Pods": {
+      message:
+        "The atmosphere can no longer hold back company profits."
+    },
+
+    "Moon Mine Syndicate": {
+      message:
+        "Extracting moon rocks to scale up manual clicking production."
+    },
+
+    "Baboon Starships": {
+      message:
+        "Fleet dispatched. The corporate perimeter expands to deep space."
+    },
+
+    "Cyborg Ape Colony": {
+      message:
+        "Part organic, part mechanical, fully optimized for clicks."
+    },
+
+    "Nebula Plantation": {
+      message:
+        "Harvesting space dust to automate cosmic corporate wealth."
+    },
+
+    "Quantum Gibbon Matrix": {
+      message:
+        "Gibbons are now clicking across multiple dimensions simultaneously."
+    },
+
+    "Singularity Gorillas": {
+      message:
+        "Collapsing stars into pure, unadulterated corporate revenue."
+    },
+
+    "Universal Click Monopoly": {
+      message:
+        "The cosmos is fully branded. You own the edges of reality."
+    }
+  };
+
+  const special = specialItems[name];
+
+  if (special) {
+    if (Number.isFinite(special.clickPower)) {
+      player.clickPower += special.clickPower;
+    }
+
+    if (gameText && special.message) {
+      gameText.textContent = special.message;
     }
   }
-  
-  if (name === "Questionable Interns") {
-    if (gameText) {
-      gameText.textContent =
-      "They don't remember applying for the job...";
-    }
-  }
-  
-  if (name === "Banana Research Lab") {
-    player.clickPower += 2000;
-    if (gameText) {
-      gameText.textContent =
-      "Results: Potassium";
-    }
-  }
+
   updateUI();
 }
 
 gameBtn.addEventListener("click", () => {
   player.clicks += player.clickPower;
+
   updateUI();
   gameBtn.blur();
 });
 
 updateUI();
-requestAnimationFrame(gameLoop);
+
+if (!animationStarted) {
+  animationStarted = true;
+  requestAnimationFrame(gameLoop);
+}
