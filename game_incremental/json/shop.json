@@ -48,5 +48,10 @@
     "name": "Questionable Interns",
     "basePrice": 75000,
     "cpsBoost": 1750
+  },
+  {
+    "name": "Warehouse",
+    "basePrice": 150000,
+    "cpsBoost": 4000
   }
 ]
