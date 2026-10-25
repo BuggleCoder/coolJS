@@ -121,3 +121,12 @@ button {
   transition: background-color 0.2s ease;
   cursor: pointer;
 }
+
+.btn-icon {
+  image-rendering: pixelated; 
+  image-rendering: crisp-edges;
+}
+
+.shopBtn.disabled .btn-icon {
+  filter: grayscale(100%) opacity(50%);
+}

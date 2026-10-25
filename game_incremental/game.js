@@ -169,16 +169,22 @@ function shopUI() {
     .map(({ index }) => index)
     .join(",");
 
+
   if (visibleKey !== currentShopKey) {
     currentShopKey = visibleKey;
     shopEl.replaceChildren();
 
-    for (const { index } of visibleItems) {
+    for (const { item, index } of visibleItems) {
       const button = document.createElement("button");
-
       button.type = "button";
       button.id = `shopBtn${index}`;
       button.className = "shopBtn";
+
+
+      const icon = document.createElement("img");
+      icon.className = "btn-icon";
+      icon.src = item.icon || "img/upgrades/autoclicker.png";
+      icon.alt = item.name || "item icon";
 
       const name = document.createElement("span");
       name.className = "btn-name";
@@ -187,9 +193,10 @@ function shopUI() {
       price.id = `shopBtn${index}Price`;
       price.className = "btn-price";
 
-      button.append(name, price);
-      button.addEventListener("click", () => buyItem(index));
 
+      button.append(icon, name, price);
+
+      button.addEventListener("click", () => buyItem(index));
       shopEl.appendChild(button);
     }
   }
@@ -203,12 +210,8 @@ function shopUI() {
 
     const cost = getItemPrice(item, index);
     const amountOwned = player.itemQuantities[index] || 0;
-
-    const romanTier =
-      amountOwned > 0 ? ` ${convertToRoman(amountOwned)}` : "";
-
     nameSpan.textContent =
-      String(item.name ?? `Item ${index + 1}`) + romanTier;
+      String(item.name ?? `Item ${index + 1}`);
 
     priceSpan.textContent = `Costs ${formatNumber(cost)}`;
 
@@ -240,7 +243,6 @@ function gameLoop(currentTime) {
     deltaTime = 0;
   }
 
-  // Prevent huge jumps if the tab is left inactive.
   deltaTime = Math.min(deltaTime, 1);
 
   if (player.cps > 0) {
@@ -277,12 +279,10 @@ function buyItem(index) {
 
   if (!name) return;
 
-  // Deduct the cost and update ownership.
   player.clicks -= price;
   player.itemQuantities[index] = amountOwned + 1;
   player.purchasedItems.push(index);
 
-  // Apply the item's production boost.
   if (name === "Better Mice") {
     player.clickPower += 20;
   } else {
@@ -293,7 +293,6 @@ function buyItem(index) {
     }
   }
 
-  // Special upgrades and their messages.
   const specialItems = {
     "Monkey Business": {
       clickPower: 100,
