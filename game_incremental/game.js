@@ -195,7 +195,6 @@ function buyItem(index) {
 
   const item = shopItems[index];
 
-  // Allow repeat purchases; only removed items are blocked.
   if (!item || isRemoved(index)) return;
 
   const price = getItemPrice(item);
@@ -220,21 +219,7 @@ function buyItem(index) {
       player.cps += boost;
     }
   }
-
-  if (name === "Site Revamp") {
-    gameBtn.classList.add("new");
-    document.title = "Clicker Game";
-  }
-
-  if (name === "Site Revamp II") {
-    gameBtn.classList.add("better");
-    document.title = "Better Clicker Game";
-
-    if (gameText) {
-      gameText.textContent = "Welcome to Better Clicker Game";
-    }
-  }
-
+  
   if (name === "Monkey Business") {
     player.clickPower += 100;
 

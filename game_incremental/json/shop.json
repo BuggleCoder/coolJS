@@ -15,22 +15,12 @@
     "cpsBoost": 20.0
   },
   {
-    "name": "Site Revamp",
-    "basePrice": 1000,
-    "cpsBoost": 50.0
-  },
-  {
-    "name": "City",
-    "basePrice": 1500,
-    "cpsBoost": 80.0
-  },
-  {
     "name": "Better Mice",
     "basePrice": 5000,
     "cpsBoost": 0
   },
   {
-    "name": "Site Revamp II",
+    "name": "Banana Warehouse",
     "basePrice": 5000,
     "cpsBoost": 150
   },
@@ -50,8 +40,8 @@
     "cpsBoost": 1750
   },
   {
-    "name": "Warehouse",
+    "name": "Silverback Salesman",
     "basePrice": 150000,
-    "cpsBoost": 4000
+    "cpsBoost": 3500
   }
 ]
