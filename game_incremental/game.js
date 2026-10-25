@@ -176,14 +176,21 @@ function shopUI() {
   }
 }
 
+
 function minigameUI() {
-  minigameEl.innerHTML = "";
-  for (let i = 0; i < player.minigames.length; i++) {
-    if (player.minigames[i] == "gorillas") {
-      minigameEl.insertAdjacentElement("beforeend", `<div class="minigame" id="minigame${player.minigames[i]}"></div>`)
+  minigameEl.replaceChildren();
+
+  for (const minigame of player.minigames) {
+    if (minigame === "gorillas") {
+      const element = document.createElement("div");
+
+      element.className = "minigame";
+      element.id = `minigame-${minigame}`;
+      minigameEl.appendChild(element);
     }
   }
 }
+
 
 function updateUI() {
   scoreEl.textContent = Math.floor(player.clicks).toLocaleString();
@@ -266,19 +273,24 @@ function buyItem(index) {
     gameText.textContent = "Welcome to Better Clicker Game"
   }
   
+  
   if (name === "Guerrilla Gorillas") {
     player.clickPower += 50;
-    if (player.minigames.includes("gorillas")) {
+    
+    if (!player.minigames.includes("gorillas")) {
       player.minigames.push("gorillas");
     }
-    gameText.textContent = "The gorillas arrived before we placed the order..."
-  }
     
+    gameText.textContent =
+    "The gorillas arrived before we placed the order...";
+  }
+  
+  
   if (name === "Monkey Business") {
     player.clickPower += 100;
     gameText.textContent = "Monkeys are good for business- as a new study shows..."
   }
-
+  
   if (name === "Questionable Interns") {
     gameText.textContent = "They don't remember applying for the job..."
   }
