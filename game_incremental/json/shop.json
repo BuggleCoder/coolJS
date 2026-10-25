@@ -35,11 +35,6 @@
     "cpsBoost": 150
   },
   {
-    "name": "Gorilla Operations",
-    "basePrice": 10000,
-    "cpsBoost": 0
-  },
-  {
     "name": "Puppy Servants",
     "basePrice": 15000,
     "cpsBoost": 500
