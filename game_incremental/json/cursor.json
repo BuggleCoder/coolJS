@@ -6,19 +6,19 @@
     },
     {
         "name": "Copper Cursor",
-        "price": 1000
+        "price": 10000
     },
     {
         "name": "Iron Cursor",
-        "price": 5000
+        "price": 50000
     },
     {
         "name": "Steel Cursor",
-        "price": 15000
+        "price": 150000
     },
     {
         "name": "Silver Cursor",
-        "price": 50000
+        "price": 500000
     },
     {
         "name": "Gold Cursor",
@@ -26,39 +26,39 @@
     },
     {
         "name": "Platinum Cursor",
-        "price": 500000
-    },
-    {
-        "name": "Ruby Cursor",
-        "price": 1500000
-    },
-    {
-        "name": "Sapphire Cursor",
         "price": 5000000
     },
     {
-        "name": "Emerald Cursor",
+        "name": "Ruby Cursor",
         "price": 15000000
     },
     {
-        "name": "Diamond Cursor",
+        "name": "Sapphire Cursor",
         "price": 50000000
     },
     {
-        "name": "Amethyst Cursor",
+        "name": "Emerald Cursor",
         "price": 150000000
     },
     {
-        "name": "Opal Cursor",
+        "name": "Diamond Cursor",
         "price": 500000000
     },
     {
-        "name": "Titanium Cursor",
+        "name": "Amethyst Cursor",
         "price": 1500000000
     },
     {
-        "name": "Obsidian Cursor",
+        "name": "Opal Cursor",
         "price": 5000000000
+    },
+    {
+        "name": "Titanium Cursor",
+        "price": 15000000000
+    },
+    {
+        "name": "Obsidian Cursor",
+        "price": 50000000000
     }
     ]
         
