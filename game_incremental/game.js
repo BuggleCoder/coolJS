@@ -1,4 +1,3 @@
-
 import shopItems from "./json/shop.json" with { type: "json" };
 
 const gameBtn = document.getElementById("game-btn");
@@ -388,15 +387,14 @@ function buyItem(index) {
   
   if (name === "Site Revamp") {
     gameBtn.classList.add("new");
-    removeShopItem(3);
-    if (document.title !== "Better Clicker Game") {
+removeShopItemByName("Site Revamp");    if (document.title !== "Better Clicker Game") {
       document.title = "Clicker Game";
     }
   }
   
   if (name === "Site Revamp II") {
     gameBtn.classList.add("better");
-    removeShopItem(6);
+removeShopItemByName("Site Revamp II");
     document.title = "Better Clicker Game";
     gameText.textContent = "Welcome to Better Clicker Game"
   }
@@ -433,6 +431,14 @@ function removeShopItem(index) {
     !isRemoved(index)
   ) {
     player.removedItems.push(index);
+  }
+}
+
+function removeShopItemByName(name) {
+  const index = shopItems.findIndex(item => item.name === name);
+
+  if (index !== -1) {
+    removeShopItem(index);
   }
 }
 
