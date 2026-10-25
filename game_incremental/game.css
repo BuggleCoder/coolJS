@@ -136,14 +136,25 @@ body {
   body {
     display: block;
   }
-
+  
   .game-section {
     width: 100%;
   }
-
+  
   .minigame-section {
     position: static;
     width: 100%;
     margin-top: 30px;
   }
+}
+
+button {
+  background: #ffffff;
+  font-family: sans-serif;
+  color: #000000;
+  padding: 10px 20px;
+  border-color: #000000;
+  border-style: solid;
+  border-radius: 10px;
+  transition: background-color 0.2s ease;
 }

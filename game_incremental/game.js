@@ -36,12 +36,18 @@ const player = {
   clickPower: 1000,
   minigames: [],
   removedItems: [],
-  purchasedItems: []
+  purchasedItems: [],
+  bananas: 0,
+  bananaStorage: 50,
+  bananaGain: 2,
+  bananaStorageUpgradeCost: 50,
+  bananaGainUpgradeCost: 25,
 };
 
 let lastTime = null;
 let currentShopKey = null;
 let currentMinigameKey = null;
+let gorillaMinigameCreated = false;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -176,20 +182,149 @@ function shopUI() {
   }
 }
 
-
 function minigameUI() {
-  minigameEl.replaceChildren();
-
-  for (const minigame of player.minigames) {
-    if (minigame === "gorillas") {
-      const element = document.createElement("div");
-
-      element.className = "minigame";
-      element.id = `minigame-${minigame}`;
-      minigameEl.appendChild(element);
-    }
+  if (!player.minigames.includes("gorillas")) {
+    minigameEl.replaceChildren();
+    gorillaMinigameCreated = false;
+    return;
   }
+  
+  if (!gorillaMinigameCreated) {
+    const element = document.createElement("div");
+    element.className = "minigame";
+    element.id = "minigame-gorillas";
+    
+    element.innerHTML = `
+      <h3>Gorilla Operations</h3>
+    
+      <p>
+        Bananas:
+        <span id="banana-counter"></span>
+        /
+        <span id="banana-storage-counter"></span>
+      </p>
+    
+      <p>
+        Bananas per mission:
+        <span id="banana-gain-counter"></span>
+      </p>
+    
+      <button type="button" id="collect-bananas" class="bananas-btn">
+        Complete Mission
+      </button>
+    
+      <hr>
+    
+      <button type="button" id="exchange-bananas" class="bananas-btn">
+        Exchange 10 Bananas for 3000 Clicks
+      </button>
+    
+      <hr>
+    
+      <button type="button" id="storage-bananas" class="bananas-btn">
+        Buy Storage Upgrade
+      </button>
+    
+      <button type="button" id="upgrade-banana-gain" class="bananas-btn">
+        Upgrade Mission Rewards
+      </button>
+    
+      <p id="gorilla-message"></p>
+    `;
+    
+    element.querySelector("#collect-bananas").addEventListener("click", () => {
+      if (player.bananas >= player.bananaStorage) {
+        document.getElementById("gorilla-message").textContent =
+        "Storage full! Upgrade your warehouse or spend some bananas.";
+        return;
+      }
+
+      if (player.clicks < 500) {
+        document.getElementById("gorilla-message").textContent =
+        "You don't have enough clicks to fund the mission";
+        return;
+      }
+      player.bananas = Math.min(
+        player.bananas + player.bananaGain,
+        player.bananaStorage
+      );
+      
+      document.getElementById("gorilla-message").textContent =
+      `Mission complete! You collected bananas. It costed 500 clicks to fund the mission`;
+      player.clicks -= 500;
+      updateUI();
+    });
+    
+    element.querySelector("#exchange-bananas").addEventListener("click", () => {
+      if (player.bananas < 10) return;
+      
+      player.bananas -= 10;
+      player.clicks += 3000;
+      
+      document.getElementById("gorilla-message").textContent =
+      "Exchanged 10 bananas for 3000 clicks!";
+      
+      updateUI();
+    });
+    
+    element.querySelector("#storage-bananas").addEventListener("click", () => {
+      if (player.bananas < player.bananaStorageUpgradeCost) return;
+      
+      player.bananas -= player.bananaStorageUpgradeCost;
+      player.bananaStorage += 50;
+      player.bananaStorageUpgradeCost *= 2;
+      
+      document.getElementById("gorilla-message").textContent =
+      "Banana storage upgraded by 50!";
+      
+      updateUI();
+    });
+    
+    element.querySelector("#upgrade-banana-gain").addEventListener("click", () => {
+      if (player.bananas < player.bananaGainUpgradeCost) return;
+      
+      player.bananas -= player.bananaGainUpgradeCost;
+      player.bananaGain += 1;
+      player.bananaGainUpgradeCost *= 2;
+      
+      document.getElementById("gorilla-message").textContent =
+      "Mission rewards upgraded!";
+      
+      updateUI();
+    });
+    
+    minigameEl.replaceChildren(element);
+    gorillaMinigameCreated = true;
+  }
+  
+  document.getElementById("banana-counter").textContent =
+  player.bananas.toLocaleString();
+  
+  document.getElementById("banana-storage-counter").textContent =
+  player.bananaStorage.toLocaleString();
+  
+  document.getElementById("banana-gain-counter").textContent =
+  player.bananaGain.toLocaleString();
+  
+  const exchangeBtn = document.getElementById("exchange-bananas");
+  const storageBtn = document.getElementById("storage-bananas");
+  const gainBtn = document.getElementById("upgrade-banana-gain");
+  
+  exchangeBtn.disabled = player.bananas < 10;
+  
+  storageBtn.textContent =
+  `Buy Storage (+50) — ${player.bananaStorageUpgradeCost} Bananas`;
+  
+  storageBtn.disabled =
+  player.bananas < player.bananaStorageUpgradeCost;
+  
+  gainBtn.textContent =
+  `Upgrade Mission Rewards (+1) — ${player.bananaGainUpgradeCost} Bananas`;
+  
+  gainBtn.disabled =
+  player.bananas < player.bananaGainUpgradeCost;
 }
+
 
 
 function updateUI() {
@@ -274,7 +409,7 @@ function buyItem(index) {
   }
   
   
-  if (name === "Guerrilla Gorillas") {
+  if (name === "Gorilla Operations") {
     player.clickPower += 50;
     
     if (!player.minigames.includes("gorillas")) {
