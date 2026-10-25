@@ -276,7 +276,7 @@ function buyItem(index) {
     
   if (name === "Monkey Business") {
     player.clickPower += 100;
-    gameText.textContent = "Monkeys are good for business- as a new study"
+    gameText.textContent = "Monkeys are good for business- as a new study shows..."
   }
   updateUI();
 }
