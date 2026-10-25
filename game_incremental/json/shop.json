@@ -48,5 +48,10 @@
     "name": "Monkey Business",
     "basePrice": 25000,
     "cpsBoost": 0
+  },
+  {
+    "name": "Questionable Interns",
+    "basePrice": 75000,
+    "cpsBoost": 1750
   }
 ]
