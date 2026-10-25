@@ -268,8 +268,10 @@ function buyItem(index) {
   
   if (name === "Guerrilla Gorillas") {
     player.clickPower += 50;
-    if (player.minigames.includes("gorilla"))
-    player.minigames.push("");
+    if (player.minigames.includes("gorillas")) {
+      player.minigames.push("gorillas");
+    }
+    gameText.textContent = "The gorillas arrived before we placed the order..."
   }
   updateUI();
 }
