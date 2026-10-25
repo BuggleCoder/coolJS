@@ -39,7 +39,7 @@ let currentShopKey = null;
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-
+  
   if (
     !Number.isFinite(min) ||
     !Number.isFinite(max) ||
@@ -47,7 +47,7 @@ function getRandomInt(min, max) {
   ) {
     throw new RangeError("Invalid random integer range.");
   }
-
+  
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -55,7 +55,7 @@ function convertToRoman(num) {
   if (!Number.isSafeInteger(num) || num < 1) {
     return "";
   }
-
+  
   const romanMap = [
     [1000, "M"],
     [900, "CM"],
@@ -71,24 +71,24 @@ function convertToRoman(num) {
     [4, "IV"],
     [1, "I"],
   ];
-
+  
   let result = "";
-
+  
   for (const [value, numeral] of romanMap) {
     const count = Math.floor(num / value);
     result += numeral.repeat(count);
     num %= value;
   }
-
+  
   return result;
 }
 
 function getItemPrice(item) {
   const price = Number(item.basePrice);
-
+  
   return Number.isFinite(price) && price >= 0
-    ? price
-    : Infinity;
+  ? price
+  : Infinity;
 }
 
 function isRemoved(index) {
@@ -97,7 +97,7 @@ function isRemoved(index) {
 
 function canShowItem(item, index) {
   const price = getItemPrice(item);
-
+  
   return (
     !isRemoved(index) &&
     Number.isFinite(price) &&
@@ -107,55 +107,55 @@ function canShowItem(item, index) {
 
 function getVisibleItems() {
   return shopItems
-    .map((item, index) => ({ item, index }))
-    .filter(({ item, index }) => canShowItem(item, index));
+  .map((item, index) => ({ item, index }))
+  .filter(({ item, index }) => canShowItem(item, index));
 }
 
 function shopUI() {
   const visibleItems = getVisibleItems();
-
+  
   const visibleKey = visibleItems
-    .map(({ index }) => index)
-    .join(",");
-
+  .map(({ index }) => index)
+  .join(",");
+  
   if (visibleKey !== currentShopKey) {
     currentShopKey = visibleKey;
     shopEl.replaceChildren();
-
+    
     for (const { item, index } of visibleItems) {
       const button = document.createElement("button");
-
+      
       button.type = "button";
       button.id = `shopBtn${index}`;
       button.className = "shopBtn";
-
+      
       const name = document.createElement("span");
       name.className = "btn-name";
       name.textContent = String(
         item.name ?? `Item ${index + 1}`
       );
-
+      
       const price = document.createElement("span");
       price.id = `shopBtn${index}Price`;
       price.className = "btn-price";
-
+      
       button.append(name, price);
       button.addEventListener("click", () => buyItem(index));
-
+      
       shopEl.appendChild(button);
     }
   }
-
+  
   for (const { item, index } of visibleItems) {
     const button = document.getElementById(`shopBtn${index}`);
     const price = document.getElementById(`shopBtn${index}Price`);
-
+    
     if (!button || !price) continue;
-
+    
     const cost = getItemPrice(item);
-
+    
     price.textContent = `Costs ${cost.toLocaleString()}`;
-
+    
     button.disabled = player.clicks < cost;
     button.classList.toggle("disabled", button.disabled);
   }
@@ -164,7 +164,7 @@ function shopUI() {
 function updateUI() {
   scoreEl.textContent = Math.floor(player.clicks).toLocaleString();
   cpsEl.textContent = player.cps.toFixed(1);
-
+  
   shopUI();
 }
 
@@ -172,49 +172,49 @@ function gameLoop(currentTime) {
   if (lastTime === null) {
     lastTime = currentTime;
   }
-
+  
   let deltaTime = (currentTime - lastTime) / 1000;
   lastTime = currentTime;
-
+  
   if (!Number.isFinite(deltaTime) || deltaTime < 0) {
     deltaTime = 0;
   }
-
+  
   deltaTime = Math.min(deltaTime, 1);
-
+  
   if (player.cps > 0) {
     player.clicks += player.cps * deltaTime;
   }
-
+  
   updateUI();
   requestAnimationFrame(gameLoop);
 }
 
 function buyItem(index) {
   if (!Number.isInteger(index)) return;
-
+  
   const item = shopItems[index];
-
+  
   if (!item || isRemoved(index)) return;
-
+  
   const price = getItemPrice(item);
-
+  
   if (!Number.isFinite(price) || player.clicks < price) {
     return;
   }
-
+  
   const name = String(item.name ?? "");
-
+  
   if (!name) return;
-
+  
   player.clicks -= price;
   player.purchasedItems.push(index);
-
+  
   if (name === "Better Mice") {
     player.clickPower += 20;
   } else {
     const boost = Number(item.cpsBoost);
-
+    
     if (Number.isFinite(boost) && boost > 0) {
       player.cps += boost;
     }
@@ -222,20 +222,27 @@ function buyItem(index) {
   
   if (name === "Monkey Business") {
     player.clickPower += 100;
-
+    
     if (gameText) {
       gameText.textContent =
-        "Monkeys are good for business—as a new study shows...";
+      "Monkeys are good for business—as a new study shows...";
     }
   }
-
+  
   if (name === "Questionable Interns") {
     if (gameText) {
       gameText.textContent =
-        "They don't remember applying for the job...";
+      "They don't remember applying for the job...";
     }
   }
-
+  
+  if (name === "Banana Research Lab") {
+    player.clickPower += 2000;
+    if (gameText) {
+      gameText.textContent =
+      "Results: Potassium";
+    }
+  }
   updateUI();
 }
 

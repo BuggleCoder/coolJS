@@ -40,8 +40,13 @@
     "cpsBoost": 1750
   },
   {
-    "name": "Silverback Salesman",
+    "name": "Silverback Salesmen",
     "basePrice": 150000,
     "cpsBoost": 3500
+  },
+  {
+    "name": "Banana Research Lab",
+    "basePrice": 300000,
+    "cpsBoost": 0
   }
 ]
