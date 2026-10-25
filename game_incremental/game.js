@@ -278,6 +278,10 @@ function buyItem(index) {
     player.clickPower += 100;
     gameText.textContent = "Monkeys are good for business- as a new study shows..."
   }
+
+  if (name === "Questionable Interns") {
+    gameText.textContent = "They don't remember applying for the job..."
+  }
   updateUI();
 }
 
