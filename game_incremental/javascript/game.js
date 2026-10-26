@@ -303,46 +303,6 @@ function buyItem(index) {
     "Banana Research Lab": {
       clickPower: 2000,
       message: "Results: Potassium"
-    },
-
-    "Orbital Chimp Pods": {
-      message:
-        "The atmosphere can no longer hold back company profits."
-    },
-
-    "Moon Mine Syndicate": {
-      message:
-        "Extracting moon rocks to scale up manual clicking production."
-    },
-
-    "Baboon Starships": {
-      message:
-        "Fleet dispatched. The corporate perimeter expands to deep space."
-    },
-
-    "Cyborg Ape Colony": {
-      message:
-        "Part organic, part mechanical, fully optimized for clicks."
-    },
-
-    "Nebula Plantation": {
-      message:
-        "Harvesting space dust to automate cosmic corporate wealth."
-    },
-
-    "Quantum Gibbon Matrix": {
-      message:
-        "Gibbons are now clicking across multiple dimensions simultaneously."
-    },
-
-    "Singularity Gorillas": {
-      message:
-        "Collapsing stars into pure, unadulterated corporate revenue."
-    },
-
-    "Universal Click Monopoly": {
-      message:
-        "The cosmos is fully branded. You own the edges of reality."
     }
   };
 
