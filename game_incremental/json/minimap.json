@@ -1,0 +1,12 @@
+[
+    {
+        "name" : "Banana Tree",
+        "price" : 50,
+        "growth" : 4
+    },
+    {
+        "name" : "Banana Juice Factory",
+        "price" : 500,
+        "growth" : 8
+    }
+]
