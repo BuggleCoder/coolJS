@@ -5,25 +5,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game</title>
-
+  
   <link rel="stylesheet" href="game.css">
   <link rel="icon" type="image/png" href="img/cursor1.png">
 </head>
 <body>
-
+  
   <div class="game-section">
     <div class="stats">
       <p>Clicks: <span id="score">0</span></p>
       <p>CPS: <span id="cps">0.0</span></p>
     </div>
-
+    
     <button id="game-btn" type="button">CLICK ME!</button>
     <p id="game-message">Welcome, clicker.</p>
     <h2>Shop</h2>
     <div id="shop-btns"></div>
+    
+    <div id="rebirth-section">
+      <button id="rebirth">Rebirth</button>
+    </div>
+    `
   </div>
   
+  
   <script type="module" src="javascript/game.js"></script>
-  <script type="module" src="javascript/minimap.js"></script>
+  <script type="module" src="javascript/prestige.js"></script>
 </body>
 </html>

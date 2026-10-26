@@ -84,31 +84,10 @@ body {
   white-space: nowrap;
 }
 
-/* Minigame section */
-.minigame-section {
+#rebirth-section {
+  position: absolute;
   top: 20px;
   right: 20px;
-  width: 250px;
-}
-
-#minigame-container {
-  position: static;
-  width: 100%;
-  min-height: 0;
-}
-
-#minigame-container .minigame {
-  margin-bottom: 15px;
-}
-
-/* Banana button */
-.bananas-btn {
-  display: block;
-  margin-bottom: 10px;
-  width: 100%;
-  padding: 10px;
-  cursor: pointer;
-}
 
 /* General buttons */
 button {

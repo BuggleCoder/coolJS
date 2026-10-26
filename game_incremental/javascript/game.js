@@ -24,7 +24,7 @@ if (!Array.isArray(cursors)) {
   console.warn("cursor.json should contain an array of cursor objects.");
 }
 
-const player = {
+export const player = {
   cps: 0,
   clicks: 0,
   clickPower: 1,
@@ -33,6 +33,7 @@ const player = {
   itemQuantities: {},
   monkeyBucks: 0,
   totalClicks : 0,
+  prestige : 0
 };
 
 let lastTime = null;
