@@ -31,7 +31,8 @@ const player = {
   removedItems: [],
   purchasedItems: [],
   itemQuantities: {},
-  monkeyBucks: 0
+  monkeyBucks: 0,
+  totalClicks : 0,
 };
 
 let lastTime = null;
@@ -242,6 +243,11 @@ function gameLoop(currentTime) {
 
   if (player.cps > 0) {
     player.clicks += player.cps * deltaTime;
+    player.totalClicks += player.cps * deltaTime;
+  }
+
+  if (player.totalClicks >= 1000000000) {
+    COST_MULTIPLIER += .05;
   }
 
   updateUI();
@@ -323,6 +329,8 @@ function buyItem(index) {
 
 gameBtn.addEventListener("click", () => {
   player.clicks += player.clickPower;
+
+  player.totalClicks += player.clickPower;
 
   updateUI();
   gameBtn.blur();
