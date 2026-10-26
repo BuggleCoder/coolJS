@@ -247,7 +247,7 @@ function gameLoop(currentTime) {
   }
 
   if (player.totalClicks >= 1000000000) {
-    COST_MULTIPLIER += .05;
+    COST_MULTIPLIER = 1.2;
   }
 
   updateUI();
