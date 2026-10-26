@@ -8,5 +8,10 @@
         "name" : "Banana Juice Factory",
         "price" : 500,
         "growth" : 8
+    },
+    {
+        "name" : "Banana Plantation",
+        "price" : 5000,
+        "growth" : 24
     }
 ]
