@@ -9,12 +9,6 @@ const gameText = document.getElementById("game-message");
 
 const COST_MULTIPLIER = 1.15;
 
-if (!gameBtn || !scoreEl || !cpsEl || !shopEl) {
-  throw new Error(
-    "Clicker game initialization failed: check your HTML element IDs."
-  );
-}
-
 if (
   !Array.isArray(shopItems) ||
   shopItems.some(
