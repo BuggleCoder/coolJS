@@ -65,13 +65,24 @@
     "basePrice": 450000,
     "cpsBoost": 11500,
     "icon": "./img/upgrades/monkey-space-division.png"
-  }
-  ,
+  },
   {
     "name": "Monkey Bureau Of Investigation",
     "basePrice": 450000,
     "cpsBoost": 0,
     "maxOwned": 1,
     "icon": "./img/upgrades/monkey-bureau-of-investigation.png"
+  },
+  {
+    "name": "Portal",
+    "basePrice": 1000000,
+    "cpsBoost": 24000,
+    "icon": "./img/upgrades/portal.png"
+  },
+  {
+    "name": "Banana Plantation",
+    "basePrice": 3500000,
+    "cpsBoost": 70000,
+    "icon": "./img/upgrades/banana-plantation.png"
   }
 ]
