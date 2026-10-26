@@ -147,7 +147,7 @@ function canShowItem(item, index) {
   return (
     !isRemoved(index) &&
     Number.isFinite(price) &&
-    price <= player.clicks
+    price <= player.clicks * 2
   );
 }
 
