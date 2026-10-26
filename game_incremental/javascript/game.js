@@ -27,7 +27,7 @@ if (!Array.isArray(cursors)) {
 const player = {
   cps: 0,
   clicks: 0,
-  clickPower: 1,
+  clickPower: 10000,
   removedItems: [],
   purchasedItems: [],
   itemQuantities: {},
