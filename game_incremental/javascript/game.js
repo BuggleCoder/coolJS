@@ -9,6 +9,8 @@ const gameText = document.getElementById("game-message");
 
 const COST_MULTIPLIER = 1.15;
 
+import { checkPrestige } from './prestige.js'; 
+
 if (
   !Array.isArray(shopItems) ||
   shopItems.some(
