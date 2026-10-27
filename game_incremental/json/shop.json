@@ -84,5 +84,11 @@
     "basePrice": 3500000,
     "cpsBoost": 70000,
     "icon": "./img/upgrades/banana-plantation.png"
+  },
+  {
+    "name": "Lunar Base",
+    "basePrice": 10000000,
+    "cpsBoost": 150000,
+    "icon": "./img/upgrades/lunar-base.png"
   }
 ]
