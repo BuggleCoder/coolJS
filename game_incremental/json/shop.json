@@ -64,7 +64,7 @@
     "name": "Space Monkey",
     "basePrice": 450000,
     "cpsBoost": 11500,
-    "icon": "./img/upgrades/monkey-space-division.png"
+    "icon": "./img/upgrades/space-monkey.png"
   },
   {
     "name": "Monkey Bureau Of Investigation",
