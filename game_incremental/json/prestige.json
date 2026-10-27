@@ -1,8 +1,21 @@
+
 [
-    {
-        "name" : "",
-        "cost" : 0,
-        "type" : "clickPower",
-        "tier" : 1
-    }
+  {
+    "id": "copper-cursor",
+    "name": "Copper Cursor",
+    "cost": 0,
+    "type": "clickPower",
+    "tier": 1,
+    "requires": [],
+    "desc": "Start of with 15 Click Power when you rebirth"
+  },
+  {
+    "id": "silver-cursor",
+    "name": "Silver Cursor",
+    "cost": 10,
+    "type": "clickPower",
+    "tier": 2,
+    "requires": ["copper-cursor"],
+    "desc": "Start of with 20 Click Power when you rebirth"
+  }
 ]
