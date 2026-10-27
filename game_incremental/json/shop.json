@@ -48,10 +48,10 @@
     "icon": "./img/upgrades/questionable-interns.png"
   },
   {
-    "name": "Silverback Salesmen",
+    "name": "Monkey Salesmen",
     "basePrice": 150000,
     "cpsBoost": 3500,
-    "icon": "./img/upgrades/silverback-salesmen.png"
+    "icon": "./img/upgrades/monkey-salesmen.png"
   },
   {
     "name": "Banana Research Lab",
