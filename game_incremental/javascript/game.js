@@ -181,6 +181,8 @@ function gameLoop(currentTime) {
     COST_MULTIPLIER = 1.2;
   }
 
+  randomFlavor();
+
   updateUI();
   requestAnimationFrame(gameLoop);
 }
