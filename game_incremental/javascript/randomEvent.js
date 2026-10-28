@@ -6,10 +6,8 @@ const gameText = document.getElementById("game-message");
 
 import { player } from "./game";
 
-export function randomFlavor() {
-    if ((Math.random() * 100).toFixed(2) >= 99) {
-        let rareishText = ["Made by Benjamin Franklin", "Chairman Dao is the best"]
-
-        gameText.textContent = rareishText[(Math.floor(Math.random() * rareishText.length))]
+export function randomFlavor(odds) {
+    if (odds >= 99.9) {
+        
     }
 }

@@ -1,7 +1,4 @@
-
 import shopItems from "../json/shop.json" with { type: "json" };
-
-
 
 const gameBtn = document.getElementById("game-btn");
 const scoreEl = document.getElementById("score");
@@ -20,6 +17,10 @@ export const player = {
   itemQuantities: {},
   totalClicks: 0
 };
+
+export const game = {
+  seconds: 0
+}
 
 let lastTime = null;
 let currentShopKey = null;
@@ -169,6 +170,11 @@ function gameLoop(currentTime) {
     deltaTime = 0;
   }
 
+  game.seconds++;
+
+  if (game.seconds % 7 == 0) {
+  }
+  
   deltaTime = Math.min(deltaTime, 1);
 
   if (player.cps > 0) {
@@ -221,32 +227,6 @@ function buyItem(index) {
 
     if (Number.isFinite(boost) && boost > 0) {
       player.cps += boost;
-    }
-  }
-
-  const specialItems = {
-    "Monkey Business": {
-      clickPower: 100,
-      message: "Monkeys are good for business—as a new study shows..."
-    },
-    "Questionable Interns": {
-      message: "They don't remember applying for the job..."
-    },
-    "Banana Research Lab": {
-      clickPower: 2000,
-      message: "Results: Potassium"
-    }
-  };
-
-  const special = specialItems[name];
-
-  if (special) {
-    if (Number.isFinite(special.clickPower)) {
-      player.clickPower += special.clickPower;
-    }
-
-    if (gameText && special.message) {
-      gameText.textContent = special.message;
     }
   }
 
