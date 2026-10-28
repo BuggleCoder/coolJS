@@ -180,9 +180,6 @@ function gameLoop(currentTime) {
   if (player.totalClicks >= 1000000000) {
     COST_MULTIPLIER = 1.2;
   }
-
-  randomFlavor();
-
   updateUI();
   requestAnimationFrame(gameLoop);
 }
