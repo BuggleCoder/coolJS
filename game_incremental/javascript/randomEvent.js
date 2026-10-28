@@ -6,3 +6,7 @@ const gameText = document.getElementById("game-message");
 
 import { player } from "./game";
 
+function randomFlavor() {
+    if ((Math.random() * 100).toFixed(2) >= 99) {
+    }
+}
