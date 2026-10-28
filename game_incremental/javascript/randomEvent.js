@@ -5,3 +5,4 @@ const shopEl = document.getElementById("shop-btns");
 const gameText = document.getElementById("game-message");
 
 import { player } from "./game";
+
