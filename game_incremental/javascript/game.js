@@ -1,5 +1,7 @@
 
 import shopItems from "../json/shop.json" with { type: "json" };
+import { randomFlavor } from "./randomEvent";
+
 
 const gameBtn = document.getElementById("game-btn");
 const scoreEl = document.getElementById("score");
