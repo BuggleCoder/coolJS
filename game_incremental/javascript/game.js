@@ -1,6 +1,5 @@
 
 import shopItems from "../json/shop.json" with { type: "json" };
-import { checkPrestige, rebirthUI } from "./prestige.js";
 
 const gameBtn = document.getElementById("game-btn");
 const scoreEl = document.getElementById("score");
@@ -155,10 +154,7 @@ function updateUI() {
         ? player.cps.toFixed(1)
         : formatNumber(player.cps);
   }
-
-  checkPrestige();
   shopUI();
-  rebirthUI();
 }
 
 function gameLoop(currentTime) {
