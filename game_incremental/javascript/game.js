@@ -16,9 +16,7 @@ export const player = {
   removedItems: [],
   purchasedItems: [],
   itemQuantities: {},
-  monkeyBucks: 0,
-  totalClicks: 0,
-  prestige: 0
+  totalClicks: 0
 };
 
 let lastTime = null;
