@@ -1,13 +1,20 @@
-const gameBtn = document.getElementById("game-btn");
-const scoreEl = document.getElementById("score");
-const cpsEl = document.getElementById("cps");
-const shopEl = document.getElementById("shop-btns");
-const gameText = document.getElementById("game-message");
+const gameBtn = document.getElementById('game-btn');
+const scoreEl = document.getElementById('score');
+const cpsEl = document.getElementById('cps');
+const shopEl = document.getElementById('shop-btns');
+const gameText = document.getElementById('game-message');
 
-import { player } from "./game";
+import flavor from '../json/flavorText.json' with { type: 'json' };
 
-export function randomFlavor(odds) {
-    if (odds >= 99.9) {
-        
-    }
+function flavorText() {
+  const commonTexts = flavor.common;
+  const randomIndex = Math.floor(Math.random() * commonTexts.length);
+  const selectedText = commonTexts[randomIndex];
+  
+  console.log(selectedText);
+  gameText.textContent = selectedText;
 }
+
+setInterval(flavorText, 7000);
+
+flavorText();

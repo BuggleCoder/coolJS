@@ -1,9 +1,4 @@
 import shopItems from "../json/shop.json" with { type: "json" };
-import { randomFlavor } from "./randomEvent";
-
-setInterval(() => {
-    randomFlavor(Math.random() * 100);
-}, 4000);
 
 const gameBtn = document.getElementById("game-btn");
 const scoreEl = document.getElementById("score");
