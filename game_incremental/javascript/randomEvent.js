@@ -8,5 +8,7 @@ import { player } from "./game";
 
 function randomFlavor() {
     if ((Math.random() * 100).toFixed(2) >= 99) {
+        let rareishText = ["Made by Benjamin Franklin", "Chairman Dao is the best"]
+        gameText.textContent = rareishText[(Math.floor(Math.random() * rareishText.length))]
     }
 }
