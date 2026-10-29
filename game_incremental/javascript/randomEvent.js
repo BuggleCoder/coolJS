@@ -14,6 +14,6 @@ function flavorText() {
   gameText.innerHTML = `<p>${selectedText}</p>`;
 }
 
-setInterval(flavorText, 7000);
+setInterval(flavorText, 5500);
 
 flavorText();
