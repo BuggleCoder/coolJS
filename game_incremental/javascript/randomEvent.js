@@ -5,7 +5,7 @@ const shopEl = document.getElementById('shop-btns');
 const gameText = document.getElementById('game-message');
 
 import flavor from '../json/flavorText.json' with { type: 'json' };
-import {player} from "../javascript/game";
+import { player } from "../javascript/game";
 
 let now = new Date();
 
@@ -22,7 +22,7 @@ function seasonal() {
   const month = new Date().getMonth();
 
   if (month >= 0 && month <= 2) {
-    player.season = "winter"; 
+    player.season = "winter";
   } else if (month >= 3 && month <= 5) {
     player.season = "spring";
   } else if (month >= 6 && month <= 8) {
@@ -38,10 +38,13 @@ function seasonal() {
   } else if (month == 2) {
     player.holiday = "spring_egg";
   } else {
-    player.holiday = "nothing"
+    player.holiday = "nothing";
   }
+
 }
 
+seasonal()
+console.log(player.holiday)
 
 setInterval(flavorText, 5500);
 
