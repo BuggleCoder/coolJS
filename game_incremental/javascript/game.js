@@ -15,7 +15,9 @@ export const player = {
   removedItems: [],
   purchasedItems: [],
   itemQuantities: {},
-  totalClicks: 0
+  totalClicks: 0,
+  season: "",
+  holiday: ""
 };
 
 export const game = {
