@@ -11,7 +11,6 @@ function flavorText() {
   const randomIndex = Math.floor(Math.random() * commonTexts.length);
   const selectedText = commonTexts[randomIndex];
   
-  console.log(selectedText);
   gameText.textContent = selectedText;
 }
 
