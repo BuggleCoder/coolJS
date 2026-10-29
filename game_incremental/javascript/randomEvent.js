@@ -10,7 +10,8 @@ function flavorText() {
   const commonTexts = flavor.common;
   const randomIndex = Math.floor(Math.random() * commonTexts.length);
   const selectedText = commonTexts[randomIndex];
-  
+
+
   gameText.innerHTML = `<p>${selectedText}</p>`;
 }
 
