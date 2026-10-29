@@ -11,7 +11,7 @@ function flavorText() {
   const randomIndex = Math.floor(Math.random() * commonTexts.length);
   const selectedText = commonTexts[randomIndex];
   
-  gameText.textContent = selectedText;
+  gameText.innerHTML = `<p>${selectedText}</p>`;
 }
 
 setInterval(flavorText, 7000);
