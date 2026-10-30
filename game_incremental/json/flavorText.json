@@ -31,5 +31,11 @@
     [
         "A flower smells suspiciously like a banana",
         "Professor Peel started a greenhouse project"
+    ],
+    "summer" : 
+    [
+        "Professor Peel has requested a larger pool",
+        "I wonder how hot it is",
+        "Even the air conditioning is overheating"
     ]
 }
