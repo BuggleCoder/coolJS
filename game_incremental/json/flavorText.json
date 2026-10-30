@@ -25,6 +25,11 @@
     [
         "Something is moving in the banana plantation",
         "The noises outside are completely normal",
-        "Knock Knock Knock"`    
+        "Knock Knock Knock"
+    ], 
+    "spring" :
+    [
+        "A flower smells suspiciously like a banana",
+        "Professor Peel started a greenhouse project"
     ]
 }
