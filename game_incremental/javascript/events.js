@@ -1,50 +1,47 @@
-const gameBtn = document.getElementById('game-btn');
-const scoreEl = document.getElementById('score');
-const cpsEl = document.getElementById('cps');
-const shopEl = document.getElementById('shop-btns');
-const gameText = document.getElementById('game-message');
+import flavor from "../json/flavorText.json" with { type: "json" };
+import { player } from "./game.js";
 
-import flavor from '../json/flavorText.json' with { type: 'json' };
-import { player } from "./game";
-
-let now = new Date();
+const gameText = document.getElementById("game-message");
 
 function flavorText() {
-  const commonTexts = flavor.common;
-  const randomIndex = Math.floor(Math.random() * commonTexts.length);
-  const selectedText = commonTexts[randomIndex];
+  if (!gameText) return;
 
+  const useSeasonal = Math.random() < 0.5;
+  const seasonalMessages = flavor[player.holiday];
+  const messages =
+    useSeasonal && Array.isArray(seasonalMessages) && seasonalMessages.length > 0
+      ? seasonalMessages
+      : flavor.common;
 
-  gameText.innerHTML = `<p>${selectedText}</p>`;
+  if (!Array.isArray(messages) || messages.length === 0) return;
+
+  const selectedText = messages[Math.floor(Math.random() * messages.length)];
+  gameText.textContent = selectedText;
 }
 
 function seasonal() {
   const month = new Date().getMonth();
 
-  if (month >= 0 && month <= 2) {
-    player.season = "winter";
-  } else if (month >= 3 && month <= 5) {
+  if (month >= 2 && month <= 4) {
     player.season = "spring";
-  } else if (month >= 6 && month <= 8) {
+  } else if (month >= 5 && month <= 7) {
     player.season = "summer";
-  } else {
+  } else if (month >= 8 && month <= 10) {
     player.season = "fall";
+  } else {
+    player.season = "winter";
   }
 
-  //seasons
-  if (month == 9) {
+  if (month === 9) {
     player.holiday = "halloween";
-  } else if (month == 2) {
-    player.holiday = "spring_egg";
+  } else if (month === 11) {
+    player.holiday = "christmas";
   } else {
     player.holiday = "nothing";
   }
-
 }
 
-seasonal()
-console.log(player.holiday)
+seasonal();
 
 setInterval(flavorText, 5500);
-
 flavorText();

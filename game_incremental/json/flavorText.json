@@ -20,5 +20,10 @@
     [
         "We spent the entire research budget on bananas...",
         "Updates coming never..."
+    ], 
+    "halloween" :
+    [
+        "Something is moving in the banana plantation",
+        "The noises outside are completely normal"
     ]
 }
