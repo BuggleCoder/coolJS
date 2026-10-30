@@ -37,7 +37,7 @@ function seasonal() {
   } else if (month === 11) {
     player.holiday = "christmas";
   } else {
-    player.holiday = "nothing";
+    player.holiday = "";
   }
 }
 
