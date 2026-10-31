@@ -31,7 +31,7 @@ function flavorText() {
   const pools = [];
 
   if (
-a    player.holiday !== "nothing" &&
+    player.holiday !== "nothing" &&
     Array.isArray(flavor[player.holiday]) &&
     flavor[player.holiday].length > 0
   ) {
