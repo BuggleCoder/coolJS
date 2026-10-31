@@ -1,69 +1,58 @@
-import flavor from "../json/flavorText.json" with { type: "json" };
-import { player } from "./game.js";
+import flavor from '../json/flavorText.json' with { type: 'json' };
+import { player } from './game.js';
 
-const gameText = document.getElementById("game-message");
+const gameText = document.getElementById('game-message');
 
-export function choose(arr) {return arr[Math.floor(Math.random()*arr.length)];}
+export function choose(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
-function flavorText() {
-  if (!gameText || !player) return;
-
-  const date = new Date();
-  const month = date.getMonth();
-
+function updateSeasonAndHoliday() {
+  const month = new Date().getMonth();
+  
   if (month >= 2 && month <= 4) {
-    player.season = "spring";
+    player.season = 'spring';
   } else if (month >= 5 && month <= 7) {
-    player.season = "summer";
+    player.season = 'summer';
   } else if (month >= 8 && month <= 10) {
-    player.season = "fall";
+    player.season = 'fall';
   } else {
-    player.season = "winter";
+    player.season = 'winter';
   }
 
   if (month === 9) {
-    player.holiday = "halloween";
+    player.holiday = 'halloween';
   } else if (month === 11) {
-    player.holiday = "christmas";
+    player.holiday = 'christmas';
   } else {
-    player.holiday = "nothing";
+    player.holiday = 'none';
   }
+}
+
+function flavorText() {
+  if (!gameText || !player) return;
+  updateSeasonAndHoliday();
 
   const pools = [];
 
   if (
-    player.holiday !== "nothing" &&
+    player.holiday !== 'none' &&
     Array.isArray(flavor[player.holiday]) &&
     flavor[player.holiday].length > 0
   ) {
-    pools.push({
-      messages: flavor[player.holiday],
-      weight: 5
-    });
+    pools.push({ messages: flavor[player.holiday], weight: 5 });
   }
 
-  if (
-    Array.isArray(flavor[player.season]) &&
-    flavor[player.season].length > 0
-  ) {
-    pools.push({
-      messages: flavor[player.season],
-      weight: 5
-    });
+  if (Array.isArray(flavor[player.season]) && flavor[player.season].length > 0) {
+    pools.push({ messages: flavor[player.season], weight: 5 });
   }
 
   if (Array.isArray(flavor.uncommon) && flavor.uncommon.length > 0) {
-    pools.push({
-      messages: flavor.uncommon,
-      weight: 2
-    });
+    pools.push({ messages: flavor.uncommon, weight: 2 });
   }
 
   if (Array.isArray(flavor.common) && flavor.common.length > 0) {
-    pools.push({
-      messages: flavor.common,
-      weight: 8
-    });
+    pools.push({ messages: flavor.common, weight: 8 });
   }
 
   if (pools.length === 0) return;
@@ -74,7 +63,6 @@ function flavorText() {
 
   for (const pool of pools) {
     roll -= pool.weight;
-
     if (roll < 0) {
       selectedPool = pool;
       break;
@@ -85,29 +73,6 @@ function flavorText() {
   gameText.textContent = messages[Math.floor(Math.random() * messages.length)];
 }
 
-function seasonal() {
-  const month = new Date().getMonth();
-
-  if (month >= 2 && month <= 4) {
-    player.season = "spring";
-  } else if (month >= 5 && month <= 7) {
-    player.season = "summer";
-  } else if (month >= 8 && month <= 10) {
-    player.season = "fall";
-  } else {
-    player.season = "winter";
-  }
-
-  if (month === 9) {
-    player.holiday = "halloween";
-  } else if (month === 11) {
-    player.holiday = "christmas";
-  } else {
-    player.holiday = "";
-  }
-}
-
-seasonal();
-
+updateSeasonAndHoliday();
 setInterval(flavorText, 5500);
 flavorText();
