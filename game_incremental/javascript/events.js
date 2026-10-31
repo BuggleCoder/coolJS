@@ -3,6 +3,7 @@ import { player } from "./game.js";
 
 const gameText = document.getElementById("game-message");
 
+export function choose(arr) {return arr[Math.floor(Math.random()*arr.length)];}
 
 function flavorText() {
   if (!gameText || !player) return;
